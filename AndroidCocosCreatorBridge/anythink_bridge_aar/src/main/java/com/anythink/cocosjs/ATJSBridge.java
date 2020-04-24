@@ -82,18 +82,25 @@ public class ATJSBridge {
                 MsgTools.pirntMsg("onResultCallback:" + b);
                 final int result = b ? 1 : 2;
                 MsgTools.pirntMsg("Call JS:" + callbackName + "(" + result + ");");
-                ((Cocos2dxActivity) mActivity).runOnGLThread(new Runnable() {
-                    public void run() {
-                        Cocos2dxJavascriptJavaBridge.evalString(callbackName + "(" + result + ");");
-                    }
-                });
-
+                if (!TextUtils.isEmpty(callbackName)) {
+                    ((Cocos2dxActivity) mActivity).runOnGLThread(new Runnable() {
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString(callbackName + "(" + result + ");");
+                        }
+                    });
+                }
             }
 
             @Override
             public void onErrorCallback(String s) {
                 MsgTools.pirntMsg("onErrorCallback:" + s);
-                Cocos2dxJavascriptJavaBridge.evalString(callbackName + "(" + 0 + ");");
+                if (!TextUtils.isEmpty(callbackName)) {
+                    ((Cocos2dxActivity) mActivity).runOnGLThread(new Runnable() {
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString(callbackName + "(" + 0 + ");");
+                        }
+                    });
+                }
             }
         });
         MsgTools.pirntMsg("getUserLocation");
