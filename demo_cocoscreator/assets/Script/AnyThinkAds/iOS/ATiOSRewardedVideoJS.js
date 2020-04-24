@@ -27,8 +27,8 @@ var ATiOSRewardedVideoJS = ATiOSRewardedVideoJS || {
     },
 
     showAdInScenario : function(placementId, scenario) {
-        ATiOSJS.printJsLog("ATiOSRewardedVideoJS::showAd(" + placementId  + ", " + scenario + ")");
-        return jsb.reflection.callStaticMethod(OC_RV_WRAPPER_CLASS, "showRewardedVideoWithPlacementID:scene:", placementId, null);
+        ATiOSJS.printJsLog("ATiOSRewardedVideoJS::showAdInScenario(" + placementId  + ", " + scenario + ")");
+        return jsb.reflection.callStaticMethod(OC_RV_WRAPPER_CLASS, "showRewardedVideoWithPlacementID:scene:", placementId, scenario);
     } 
   
 };

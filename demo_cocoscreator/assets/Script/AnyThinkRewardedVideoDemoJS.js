@@ -44,7 +44,7 @@ cc.Class({
 
     showAd : function () {
         // ATRewardedVideoJSSDK.showAd(this.placementID());
-        ATRewardedVideoJSSDK.showAdInScenario(this.placementID(), "test_scene");
+        ATRewardedVideoJSSDK.showAdInScenario(this.placementID(), "f5e54970dc84e6");
     },
 
     checkReady : function () {

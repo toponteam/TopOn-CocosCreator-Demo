@@ -28,7 +28,7 @@ var ATiOSInterstitialJS = ATiOSInterstitialJS || {
 
     showAdInScenario : function(placementId, scenario) {
         ATiOSJS.printJsLog("ATiOSInterstitialJS::showAd(" + placementId  + ", " + scenario + ")");
-        return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showInterstitialWithPlacementID:scene:", placementId, null);
+        return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showInterstitialWithPlacementID:scene:", placementId, scenario);
     } 
   
 };

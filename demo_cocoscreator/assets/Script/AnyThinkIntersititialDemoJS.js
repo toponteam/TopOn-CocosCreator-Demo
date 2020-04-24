@@ -38,8 +38,8 @@ cc.Class({
     },
 
     showAd : function () {
-        ATInterstitialJSSDK.showAd(this.placementID());
-        // ATInterstitialJSSDK.showAdInScenario(this.placementID(), "Your Scenario Id");
+        // ATInterstitialJSSDK.showAd(this.placementID());
+        ATInterstitialJSSDK.showAdInScenario(this.placementID(), "f5e549727efc49");
     },
 
     checkReady : function () {
