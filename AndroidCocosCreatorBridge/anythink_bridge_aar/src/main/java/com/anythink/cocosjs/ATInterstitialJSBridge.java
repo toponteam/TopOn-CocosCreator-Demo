@@ -1,0 +1,60 @@
+package com.anythink.cocosjs;
+
+import com.anythink.cocosjs.interstitial.InterstitialHelper;
+import com.anythink.cocosjs.utils.MsgTools;
+
+import java.util.HashMap;
+
+public class ATInterstitialJSBridge {
+
+    private static final HashMap<String, InterstitialHelper> sHelperMap = new HashMap<>();
+
+    private static String listenerJson;
+
+    public static void setAdListener(String listener) {
+        MsgTools.pirntMsg("interstitial setAdListener >>> " + listener);
+        listenerJson = listener;
+    }
+
+
+    public static void load(String placementId) {
+        InterstitialHelper helper = getHelper(placementId);
+        if (helper != null) {
+            helper.setAdListener(listenerJson);
+            helper.loadInterstitial(placementId);
+        }
+    }
+
+    public static void show(String placementId) {
+        show(placementId, "");
+    }
+
+    public static void show(String placementId, String settings) {
+        InterstitialHelper helper = getHelper(placementId);
+        if (helper != null) {
+            helper.showInterstitial(settings);
+        }
+    }
+
+    public static boolean isAdReady(String placementId) {
+        InterstitialHelper helper = getHelper(placementId);
+        if (helper != null) {
+            return helper.isAdReady();
+        }
+        return false;
+    }
+
+
+    private static InterstitialHelper getHelper(String placementId) {
+        InterstitialHelper helper;
+
+        if (!sHelperMap.containsKey(placementId)) {
+            helper = new InterstitialHelper();
+            sHelperMap.put(placementId, helper);
+        } else {
+            helper = sHelperMap.get(placementId);
+        }
+
+        return helper;
+    }
+}
