@@ -49,6 +49,7 @@ static NSString *const kShowExtraSceneKey = @"scenario";
 }
 
 +(void) showRewardedVideoWithPlacementID:(NSString*)placementID scene:(NSString*)scene {
+    NSLog(@"ATRewardedVideoWrapper::showRewardedVideoWithPlacementID:%@ scene:%@", placementID, scene);
     [[ATAdManager sharedManager] showRewardedVideoWithPlacementID:placementID scene:scene inViewController:[UIApplication sharedApplication].delegate.window.rootViewController delegate:[ATRewardedVideoWrapper sharedWrapper]];
 }
 #pragma mark - delegates
@@ -79,7 +80,13 @@ static NSString *const kShowExtraSceneKey = @"scenario";
 
 -(void) rewardedVideoDidCloseForPlacementID:(NSString*)placementID rewarded:(BOOL)rewarded extra:(NSDictionary *)extra {
     NSLog(@"ATRewardedVideoWrapper::rewardedVideoDidCloseForPlacementID:%@ rewarded:%@ extra:%@", placementID, rewarded ? @"1" : @"0", extra);
-    [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, rewarded ? @"1" : @"0", [extra jsonString_AnyThinkJS]]];
+    if ([extra[kATRewardedVideoCallbackExtraNetworkIDKey]  integerValue] == 35) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+        });
+    } else {
+        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+    }
 }
 
 -(void) rewardedVideoDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {

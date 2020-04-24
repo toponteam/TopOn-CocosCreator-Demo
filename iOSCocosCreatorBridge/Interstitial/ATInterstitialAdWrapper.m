@@ -86,7 +86,13 @@ static NSString *const kDelegatesFailedToShowKey = @"InterstitialAdFailedToShow"
 
 -(void) interstitialDidCloseForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
     NSLog(@"ATInterstitialAdWrapper::interstitialDidCloseForPlacementID:%@ extra:%@", placementID, extra);
-    [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+    if ([extra[kATInterstitialDelegateExtraNetworkIDKey]  integerValue] == 35) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+        });
+    } else {
+        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+    }
 }
 
 -(void) interstitialDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
