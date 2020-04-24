@@ -47,6 +47,7 @@ SDK_Version = "v5.5.6"
 def buildCrossPlatform():
     shutil.copytree(ROOT_DIR + '/demo_cocoscreator/assets/Script/AnyThinkAds', ROOT_DIR + '/' + Android_iOS_Output_Dir + Script_Dir)
     shutil.copytree(ROOT_DIR + '/AndroidCocosCreatorBridge/anythink_bridge_aar/src/main/java', ROOT_DIR + '/' + Android_iOS_Output_Dir + 'bridge_android/source')
+    shutil.copytree(ROOT_DIR + '/AndroidCocosCreatorBridge/anythink_bridge_aar/release', ROOT_DIR + '/' + Android_iOS_Output_Dir + 'bridge_android/library')
     shutil.copytree(ROOT_DIR + '/iOSCocosCreatorBridge', ROOT_DIR + '/' + Android_iOS_Output_Dir + 'bridge_ios')
 
 def buildAndroid():
@@ -54,7 +55,7 @@ def buildAndroid():
     shutil.rmtree(ROOT_DIR + '/'+ Android_Output_Dir + '/'+ Script_Dir + '/iOS')
 
     shutil.copytree(ROOT_DIR + '/AndroidCocosCreatorBridge/anythink_bridge_aar/src/main/java', ROOT_DIR + '/' + Android_Output_Dir + 'bridge_android/source')
-
+    shutil.copytree(ROOT_DIR + '/AndroidCocosCreatorBridge/anythink_bridge_aar/release', ROOT_DIR + '/' + Android_Output_Dir + 'bridge_android/library')
 
 def buildiOS():
     shutil.copytree(ROOT_DIR + '/demo_cocoscreator/assets/Script/AnyThinkAds', ROOT_DIR  + '/' + iOS_Output_Dir + Script_Dir)
