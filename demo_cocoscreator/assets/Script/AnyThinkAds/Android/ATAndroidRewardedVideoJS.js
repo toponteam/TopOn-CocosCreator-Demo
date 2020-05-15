@@ -18,7 +18,7 @@ var ATAndroidRewardedVideoJS = ATAndroidRewardedVideoJS || {
 
     showAd : function(placementId) {
         cc.log("Android-rv_showAd:" + placementId);
-		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;V", placementId);
+		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;)V", placementId);
     },
 
     showAdInScenario : function(placementId, scenario) {
