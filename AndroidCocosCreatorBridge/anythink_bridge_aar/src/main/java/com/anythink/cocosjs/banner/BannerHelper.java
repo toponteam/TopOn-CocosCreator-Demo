@@ -333,7 +333,7 @@ public class BannerHelper extends BaseHelper {
     }
 
     public boolean isAdReady() {
-        MsgTools.pirntMsg("banner isAdReady >>> " + mUnitId + ", " + isAdReady());
+        MsgTools.pirntMsg("banner isAdReady >>> " + mUnitId + "：" + isReady);
         return isReady;
     }
 
