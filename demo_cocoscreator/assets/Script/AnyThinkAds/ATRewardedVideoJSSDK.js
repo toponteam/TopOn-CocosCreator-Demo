@@ -1,7 +1,6 @@
 
 var ATAndroidRewardedVideoJS = require("./Android/ATAndroidRewardedVideoJS");
 var ATiOSRewardedVideoJS = require("./iOS/ATiOSRewardedVideoJS");
-require("./AnyThinkAds/ATJSSDK");
 
 var initPlatformBridge = function() {  
     if (cc.sys.os === cc.sys.OS_IOS) {           
