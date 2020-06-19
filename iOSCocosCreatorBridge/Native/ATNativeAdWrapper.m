@@ -141,6 +141,7 @@ NSDictionary *parseNativeExtraJsonStr(NSString* jsonStr) {
         config.delegate = [ATNativeAdWrapper sharedWrapper];
         config.renderingViewClass = [ATCCNativeAdView class];
         config.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        config.ADFrame = [metrics[@"parent"] isKindOfClass:[NSDictionary class]] ? CGRectMake([metrics[@"parent"][@"x"] doubleValue], [metrics[@"parent"][@"y"] doubleValue], [metrics[@"parent"][@"width"] doubleValue], [metrics[@"parent"][@"height"] doubleValue]) : CGRectZero;
         ATCCNativeAdView *adView = [[ATAdManager sharedManager] retriveAdViewWithPlacementID:placementID configuration:config];
         if (adView != nil) {
             [ATNativeAdWrapper sharedWrapper].adViews[placementID] = adView;
