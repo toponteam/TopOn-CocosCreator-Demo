@@ -2,9 +2,9 @@
 
 <h3>TopOn cocoscreator SDK的集成指引</h3>
 
-<a href="https://docs.toponad.com/#/zh-cn/cocos/cocos_doc/cocos_access_doc" target="_blank">Topon cocoscreator SDK的集成文档（中文版）</a>
+<a href="https://docs.toponad.com/#/zh-cn/cocoscreator/cocoscreator_doc/cocoscreator_access_doc" target="_blank">Topon cocoscreator SDK的集成文档（中文版）</a>
 
-<a href="https://docs.toponad.com/#/en-us/cocos/cocos_doc/cocos_access_doc" target="_blank">TopOn-cocoscreator-Integration (English)</a>
+<a href="https://docs.toponad.com/#/en-us/cocoscreator/cocoscreator_doc/cocoscreator_access_doc" target="_blank">TopOn-cocoscreator-Integration (English)</a>
 
 TopOn cocoscreator SDK下载地址：
 
