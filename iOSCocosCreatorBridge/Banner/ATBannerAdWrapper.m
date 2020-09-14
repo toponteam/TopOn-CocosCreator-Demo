@@ -8,18 +8,45 @@
 
 #import "ATBannerAdWrapper.h"
 #import <AnyThinkBanner/AnyThinkBanner.h>
+//5.6.6版本以上支持 admob 自适应banner （用到时再import该头文件）
+//#import <GoogleMobileAds/GoogleMobileAds.h>
+
+static NSString *kATBannerAdLoadingExtraInlineAdaptiveWidthKey = @"inline_adaptive_width";
+static NSString *kATBannerAdLoadingExtraInlineAdaptiveOrientationKey = @"inline_adaptive_orientation";
 
 @interface ATBannerAdWrapper()<ATBannerDelegate>
 @property(nonatomic, readonly) NSMutableDictionary<NSString*, UIView*>* bannerViews;
 @end
 
 NSDictionary *parseExtraJsonStr(NSString* jsonStr) {
-    NSDictionary *extra = nil;
+    NSMutableDictionary *extra = [NSMutableDictionary dictionary];
     if (jsonStr != nil) {
-        NSDictionary *sizeDict = [NSJSONSerialization JSONObjectWithString:jsonStr options:NSJSONReadingAllowFragments error:nil];
-        if ([sizeDict isKindOfClass:[NSDictionary class]]) {
-            CGFloat scale = [sizeDict[@"usesPixel"] boolValue] ? UIScreen.mainScreen.nativeScale : 1.0f;
-            extra = @{kATAdLoadingExtraBannerAdSizeKey:[NSValue valueWithCGSize:CGSizeMake([sizeDict[@"width"] doubleValue] / scale, [sizeDict[@"height"] doubleValue] / scale)]};
+        NSDictionary *extraDict = [NSJSONSerialization JSONObjectWithString:jsonStr options:NSJSONReadingAllowFragments error:nil];
+        if ([extraDict isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"loadBannerExtraDict = %@", extraDict);
+            CGFloat scale = [extraDict[@"usesPixel"] boolValue] ? UIScreen.mainScreen.nativeScale : 1.0f;
+            extra[kATAdLoadingExtraBannerAdSizeKey] = [NSValue valueWithCGSize:CGSizeMake([extraDict[@"width"] doubleValue] / scale, [extraDict[@"height"] doubleValue] / scale)];
+//            // admob 自适应banner，5.6.6版本以上支持
+//            if (extraDict[kATBannerAdLoadingExtraInlineAdaptiveWidthKey] != nil && extraDict[kATBannerAdLoadingExtraInlineAdaptiveOrientationKey] != nil) {
+//                //GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth 自适应
+//                //GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth 竖屏
+//                //GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth 横屏
+//                CGFloat admobBannerWidth = [extraDict[kATBannerAdLoadingExtraInlineAdaptiveWidthKey] doubleValue];
+//                GADAdSize admobSize;
+//                if ([extraDict[kATBannerAdLoadingExtraInlineAdaptiveOrientationKey] integerValue] == 1) {
+//                    admobSize = GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(admobBannerWidth);
+//                } else if ([extraDict[kATBannerAdLoadingExtraInlineAdaptiveOrientationKey] integerValue] == 2) {
+//                    admobSize = GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(admobBannerWidth);
+//                } else {
+//                    admobSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(admobBannerWidth);
+//                }
+//
+//                extra[kATAdLoadingExtraAdmobBannerSizeKey] = [NSValue valueWithCGSize:admobSize.size];
+//                extra[kATAdLoadingExtraAdmobAdSizeFlagsKey] = @(admobSize.flags);
+//            }
+        }
+        if (extra[kATAdLoadingExtraBannerAdSizeKey] == nil) {
+            extra[kATAdLoadingExtraBannerAdSizeKey] = [NSValue valueWithCGSize:CGSizeMake(320.0f, 50.0f)];
         }
     }
     return extra;
@@ -69,6 +96,7 @@ static NSString *const kDelegatesShowKey = @"BannerShow";
 +(void) loadBannerWithPlacementID:(NSString*)placementID extra:(NSString*)extraJsonStr {
     NSLog(@"ATBannerAdWrapper::loadBannerWithPlacementID:%@ extra:%@", placementID, extraJsonStr);
     NSDictionary *extra = parseExtraJsonStr(extraJsonStr);
+    NSLog(@"loadBannerExtra = %@", extra);
     [[ATAdManager sharedManager] loadADWithPlacementID:placementID extra:[extra isKindOfClass:[NSDictionary class]] ? extra : nil delegate:[ATBannerAdWrapper sharedWrapper]];
 }
 
@@ -81,6 +109,7 @@ static NSString *const kDelegatesShowKey = @"BannerShow";
     NSLog(@"ATBannerAdWrapper::showBannerWithPlacementID:%@ position:%@", placementID, position);
     dispatch_async(dispatch_get_main_queue(), ^{
         ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:placementID];
+        NSLog(@"bannerViewFrame = %@", NSStringFromCGRect(bannerView.frame));
         if (bannerView != nil) {
             [ATBannerAdWrapper sharedWrapper].bannerViews[placementID] = bannerView;
             bannerView.delegate = [ATBannerAdWrapper sharedWrapper];
@@ -117,8 +146,8 @@ static NSString *const kDelegatesShowKey = @"BannerShow";
     });
 }
 
-+(void) rewoveAd:(NSString*)placementID {
-    NSLog(@"ATBannerAdWrapper::rewoveAd:%@", placementID);
++(void) removeAd:(NSString*)placementID {
+    NSLog(@"ATBannerAdWrapper::removeAd:%@", placementID);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[ATBannerAdWrapper sharedWrapper].bannerViews[placementID] removeFromSuperview];
         [[ATBannerAdWrapper sharedWrapper].bannerViews removeObjectForKey:placementID];

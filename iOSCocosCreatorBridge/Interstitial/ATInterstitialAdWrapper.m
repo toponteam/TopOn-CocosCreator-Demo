@@ -9,6 +9,7 @@
 #import "ATInterstitialAdWrapper.h"
 #import <AnyThinkInterstitial/AnyThinkInterstitial.h>
 
+NSString *const kLoadUseRVAsInterstitialKey = @"UseRewardedVideoAsInterstitial";
 @interface ATInterstitialAdWrapper()<ATInterstitialDelegate>
 @end
 static NSString *const kDelegatesLoadedKey = @"InterstitialLoaded";
@@ -33,7 +34,14 @@ static NSString *const kDelegatesFailedToShowKey = @"InterstitialAdFailedToShow"
 +(void) loadInterstitialWithPlacementID:(NSString*)placementID extra:(NSString*)extraJsonStr {
     NSLog(@"ATInterstitialAdWrapper::loadInterstitialWithPlacementID:%@ extra:%@", placementID, extraJsonStr);
     NSDictionary *extra = nil;
-    if (extraJsonStr != nil) { extra = [NSJSONSerialization JSONObjectWithString:extraJsonStr options:NSJSONReadingAllowFragments error:nil]; }
+    if (extraJsonStr != nil) {
+        NSDictionary *extraDict = [NSJSONSerialization JSONObjectWithString:extraJsonStr options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"extraDict = %@", extraDict);
+        if (extraDict[kLoadUseRVAsInterstitialKey] != nil) {
+            extra = @{kATInterstitialExtraUsesRewardedVideo:@([extraDict[kLoadUseRVAsInterstitialKey] boolValue])};
+        }
+    }
+    NSLog(@"loadInterstitialExtra = %@", extra);
     [[ATAdManager sharedManager] loadADWithPlacementID:placementID extra:[extra isKindOfClass:[NSDictionary class]] ? extra : nil delegate:[ATInterstitialAdWrapper sharedWrapper]];
 }
 
