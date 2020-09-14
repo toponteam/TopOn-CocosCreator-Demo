@@ -1,6 +1,7 @@
 package com.anythink.cocosjs.interstitial;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.anythink.cocosjs.utils.BaseHelper;
 import com.anythink.cocosjs.utils.Const;
@@ -12,13 +13,17 @@ import com.anythink.interstitial.api.ATInterstitial;
 import com.anythink.interstitial.api.ATInterstitialListener;
 
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class InterstitialHelper extends BaseHelper {
 
     private static final String TAG = InterstitialHelper.class.getSimpleName();
 
     ATInterstitial mInterstitialAd;
-    String mUnitId;
+    String mPlacementId;
     Activity mActivity;
 
     boolean isReady = false;
@@ -34,16 +39,16 @@ public class InterstitialHelper extends BaseHelper {
     }
 
 
-    private void initInterstitial(final String unitid) {
-        MsgTools.pirntMsg("initInterstitial  >>> " + mUnitId);
+    private void initInterstitial(final String placementId) {
+        mPlacementId = placementId;
+        MsgTools.pirntMsg("initInterstitial  >>> " + mPlacementId);
 
-        mInterstitialAd = new ATInterstitial(mActivity, unitid);
-        mUnitId = unitid;
+        mInterstitialAd = new ATInterstitial(mActivity, placementId);
 
         mInterstitialAd.setAdListener(new ATInterstitialListener() {
             @Override
             public void onInterstitialAdLoaded() {
-                MsgTools.pirntMsg("onInterstitialAdLoaded .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdLoaded .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.LoadedCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -51,7 +56,7 @@ public class InterstitialHelper extends BaseHelper {
                         public void run() {
                             isReady = true;
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.LoadedCallbackKey)
-                                    + "('" + mUnitId + "');");
+                                    + "('" + mPlacementId + "');");
                         }
                     });
                 }
@@ -59,7 +64,7 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdLoadFail(final AdError adError) {
-                MsgTools.pirntMsg("onInterstitialAdLoadFail >> " + mUnitId + ", " + adError.printStackTrace());
+                MsgTools.pirntMsg("onInterstitialAdLoadFail >> " + mPlacementId + ", " + adError.printStackTrace());
 
                 if (hasCallbackName(Const.InterstitialCallback.LoadFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -67,7 +72,7 @@ public class InterstitialHelper extends BaseHelper {
                         public void run() {
                             isReady = false;
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.LoadFailCallbackKey)
-                                    + "('" + mUnitId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
                         }
                     });
                 }
@@ -75,14 +80,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdClicked(final ATAdInfo atAdInfo) {
-                MsgTools.pirntMsg("onInterstitialAdClicked .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdClicked .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.ClickCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.ClickCallbackKey)
-                                    + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                         }
                     });
                 }
@@ -90,14 +95,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdShow(final ATAdInfo atAdInfo) {
-                MsgTools.pirntMsg("onInterstitialAdShow .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdShow .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.ShowCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.ShowCallbackKey)
-                                    + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                         }
                     });
                 }
@@ -105,14 +110,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdClose(final ATAdInfo atAdInfo) {
-                MsgTools.pirntMsg("onInterstitialAdClose .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdClose .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.CloseCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.CloseCallbackKey)
-                                    + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                         }
                     });
                 }
@@ -120,14 +125,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdVideoStart(final ATAdInfo atAdInfo) {
-                MsgTools.pirntMsg("onInterstitialAdVideoStart .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdVideoStart .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.PlayStartCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.PlayStartCallbackKey)
-                                    + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                         }
                     });
                 }
@@ -135,14 +140,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdVideoEnd(final ATAdInfo atAdInfo) {
-                MsgTools.pirntMsg("onInterstitialAdVideoEnd .." + mUnitId);
+                MsgTools.pirntMsg("onInterstitialAdVideoEnd .." + mPlacementId);
 
                 if (hasCallbackName(Const.InterstitialCallback.PlayEndCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.PlayEndCallbackKey)
-                                    + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                         }
                     });
                 }
@@ -150,14 +155,14 @@ public class InterstitialHelper extends BaseHelper {
 
             @Override
             public void onInterstitialAdVideoError(final AdError adError) {
-                MsgTools.pirntMsg("onInterstitialAdVideoError .." + mUnitId + ", " + adError.printStackTrace());
+                MsgTools.pirntMsg("onInterstitialAdVideoError .." + mPlacementId + ", " + adError.printStackTrace());
 
                 if (hasCallbackName(Const.InterstitialCallback.PlayFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.InterstitialCallback.PlayFailCallbackKey)
-                                    + "('" + mUnitId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
                         }
                     });
                 }
@@ -165,15 +170,30 @@ public class InterstitialHelper extends BaseHelper {
         });
     }
 
-
-    public void loadInterstitial(final String unitId) {
-        MsgTools.pirntMsg("loadInterstitial >>> " + unitId);
+    public void loadInterstitial(final String placementId, final String settings) {
+        MsgTools.pirntMsg("loadInterstitial >>> " + placementId + ", settings >>> " + settings);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
                 if (mInterstitialAd == null) {
-                    initInterstitial(unitId);
+                    initInterstitial(placementId);
+                }
+
+                if (!TextUtils.isEmpty(settings)) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(settings);
+                        Map<String, Object> localExtra = new HashMap<>();
+                        if (jsonObject.has(Const.Interstital.UseRewardedVideoAsInterstitial)) {
+                            if ((boolean) jsonObject.get(Const.Interstital.UseRewardedVideoAsInterstitial)) {
+                                localExtra.put("is_use_rewarded_video_as_interstitial", true);
+                            }
+                        }
+                        fillMapFromJsonObject(localExtra, jsonObject);
+                        mInterstitialAd.setLocalExtra(localExtra);
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 mInterstitialAd.load();
@@ -182,21 +202,21 @@ public class InterstitialHelper extends BaseHelper {
     }
 
     public void showInterstitial(final String scenario) {
-        MsgTools.pirntMsg("showInterstitial >>> " + mUnitId + ", scenario >>> " + scenario);
+        MsgTools.pirntMsg("showInterstitial >>> " + mPlacementId + ", scenario >>> " + scenario);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mInterstitialAd != null) {
                     isReady = false;
-                    mInterstitialAd.show(scenario);
+                    mInterstitialAd.show(mActivity, scenario);
                 } else {
-                    MsgTools.pirntMsg("showInterstitial error  ..you must call loadRewardVideo first, unitId" + mUnitId);
+                    MsgTools.pirntMsg("showInterstitial error  ..you must call loadRewardVideo first, placementId" + mPlacementId);
                     if (hasCallbackName(Const.RewardVideoCallback.LoadFailCallbackKey)) {
                         JSPluginUtil.runOnGLThread(new Runnable() {
                             @Override
                             public void run() {
                                 Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.RewardVideoCallback.LoadFailCallbackKey)
-                                        + "('" + mUnitId + "','" + "you must call loadRewardVideo first" + "');");
+                                        + "('" + mPlacementId + "','" + "you must call loadRewardVideo first" + "');");
                             }
                         });
                     }
@@ -207,17 +227,17 @@ public class InterstitialHelper extends BaseHelper {
     }
 
     public boolean isAdReady() {
-        MsgTools.pirntMsg("interstitial isAdReady >>> " + mUnitId);
+        MsgTools.pirntMsg("interstitial isAdReady >>> " + mPlacementId);
 
         try {
             if (mInterstitialAd != null) {
                 boolean isAdReady = mInterstitialAd.isAdReady();
-                MsgTools.pirntMsg("interstitial isAdReady >>> " + mUnitId + ", " + isAdReady);
+                MsgTools.pirntMsg("interstitial isAdReady >>> " + mPlacementId + ", " + isAdReady);
                 return isAdReady;
             } else {
-                MsgTools.pirntMsg("interstitial isAdReady error  ..you must call loadInterstitial first " + mUnitId);
+                MsgTools.pirntMsg("interstitial isAdReady error  ..you must call loadInterstitial first " + mPlacementId);
             }
-            MsgTools.pirntMsg("interstitial isAdReady >end>> " + mUnitId);
+            MsgTools.pirntMsg("interstitial isAdReady >end>> " + mPlacementId);
         } catch (Throwable e) {
             MsgTools.pirntMsg("interstitial isAdReady >Throwable>> " + e.getMessage());
             return isReady;

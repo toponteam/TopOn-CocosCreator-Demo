@@ -16,12 +16,11 @@ public class ATInterstitialJSBridge {
         listenerJson = listener;
     }
 
-
-    public static void load(String placementId) {
+    public static void load(String placementId, String settings) {
         InterstitialHelper helper = getHelper(placementId);
         if (helper != null) {
             helper.setAdListener(listenerJson);
-            helper.loadInterstitial(placementId);
+            helper.loadInterstitial(placementId, settings);
         }
     }
 

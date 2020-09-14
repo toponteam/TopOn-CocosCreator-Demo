@@ -57,4 +57,15 @@ public class BaseHelper {
         }
         return map;
     }
+
+    protected static void fillMapFromJsonObject(Map<String, Object> localExtra, JSONObject jsonObject) {
+        Iterator<String> keys = jsonObject.keys();
+        String key;
+        while (keys.hasNext()) {
+            key = keys.next();
+            Object value = jsonObject.opt(key);
+            localExtra.put(key, value);
+        }
+    }
+
 }

@@ -23,12 +23,13 @@ public class ATBannerJSBridge {
             helper.setAdListener(listenerJson);
             helper.loadBanner(placementId, settings);
         }
+
     }
 
-    public static void showWithPostion(String placementId, String position) {
+    public static void showWithPosition(String placementId, String position) {
         BannerHelper helper = getHelper(placementId);
         if (helper != null) {
-            helper.showBannerWithPostion(position);
+            helper.showBannerWithPosition(position);
         }
     }
 

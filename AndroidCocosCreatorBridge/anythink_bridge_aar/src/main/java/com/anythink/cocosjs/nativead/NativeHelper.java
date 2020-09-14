@@ -18,7 +18,6 @@ import com.anythink.nativead.api.ATNativeDislikeListener;
 import com.anythink.nativead.api.ATNativeEventListener;
 import com.anythink.nativead.api.ATNativeNetworkListener;
 import com.anythink.nativead.api.NativeAd;
-import com.anythink.network.toutiao.TTATConst;
 
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 import org.json.JSONException;
@@ -33,8 +32,7 @@ public class NativeHelper extends BaseHelper {
 
     private final String TAG = getClass().getSimpleName();
     Activity mActivity;
-    String mUnitId;
-    String mSettings;
+    String mPlacementId;
 
     ATNative mATNative;
     ATNativeAdView mATNativeAdView;
@@ -47,7 +45,7 @@ public class NativeHelper extends BaseHelper {
     public NativeHelper() {
         MsgTools.pirntMsg(TAG + " >>> " + this);
         mActivity = JSPluginUtil.getActivity();
-        mUnitId = "";
+        mPlacementId = "";
     }
 
     @Override
@@ -55,23 +53,21 @@ public class NativeHelper extends BaseHelper {
         super.setAdListener(callbackNameJson);
     }
 
-    private void initNative(String unitId, String localJson) {
-        MsgTools.pirntMsg("initNative >>> " + unitId + ", settings >>> " + localJson);
+    private void initNative(String placementId) {
+        mPlacementId = placementId;
+        MsgTools.pirntMsg("initNative >>> " + placementId);
 
-        mUnitId = unitId;
-        mSettings = localJson;
-
-        mATNative = new ATNative(mActivity, unitId, new ATNativeNetworkListener() {
+        mATNative = new ATNative(mActivity, placementId, new ATNativeNetworkListener() {
             @Override
             public void onNativeAdLoaded() {
-                MsgTools.pirntMsg("onNativeAdLoaded .." + mUnitId);
+                MsgTools.pirntMsg("onNativeAdLoaded .." + mPlacementId);
 
                 if (hasCallbackName(Const.NativeCallback.LoadedCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.LoadedCallbackKey)
-                                    + "('" + mUnitId + "');");
+                                    + "('" + mPlacementId + "');");
                         }
                     });
                 }
@@ -79,55 +75,60 @@ public class NativeHelper extends BaseHelper {
 
             @Override
             public void onNativeAdLoadFail(final AdError adError) {
-                MsgTools.pirntMsg("onNativeAdLoadFail >> " + mUnitId + ", " + adError.printStackTrace());
+                MsgTools.pirntMsg("onNativeAdLoadFail >> " + mPlacementId + ", " + adError.printStackTrace());
 
                 if (hasCallbackName(Const.NativeCallback.LoadFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.LoadFailCallbackKey)
-                                    + "('" + mUnitId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
                         }
                     });
                 }
             }
         });
 
-        if (!TextUtils.isEmpty(localJson)) {//设置穿山甲广告大小
-            try {
-                JSONObject jsonObject = new JSONObject(localJson);
-                int width = 0;
-                int height = 0;
-                if (jsonObject.has(Const.WIDTH)) {
-                    width = jsonObject.optInt(Const.WIDTH);
-                }
-                if (jsonObject.has(Const.HEIGHT)) {
-                    height = jsonObject.optInt(Const.HEIGHT);
-                }
-
-                Map<String, Object> localExtra = new HashMap<>();
-                localExtra.put(TTATConst.NATIVE_AD_IMAGE_WIDTH, width);
-                localExtra.put(TTATConst.NATIVE_AD_IMAGE_HEIGHT, height);
-                MsgTools.pirntMsg("native setLocalExtra >>>  width: " + width + ", height: " + height);
-                mATNative.setLocalExtra(localExtra);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
         mATNativeAdView = new ATNativeAdView(mActivity);
     }
 
-    public void loadNative(final String unitId, final String settings) {
-        MsgTools.pirntMsg("loadNative >>> " + unitId + ", settings: " + settings);
+    public void loadNative(final String placementId, final String settings) {
+        MsgTools.pirntMsg("loadNative >>> " + placementId + ", settings: " + settings);
 
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mATNative == null || !TextUtils.equals(mUnitId, unitId) && !TextUtils.equals(mSettings, settings)) {
-                    initNative(unitId, settings);
+                if (mATNative == null || !TextUtils.equals(mPlacementId, placementId)) {
+                    initNative(placementId);
                 }
+
+                if (!TextUtils.isEmpty(settings)) {//设置LocalExtra
+                    try {
+                        JSONObject jsonObject = new JSONObject(settings);
+                        int width = 0;
+                        int height = 0;
+                        Map<String, Object> localExtra = new HashMap<>();
+                        if (jsonObject.has(Const.WIDTH)) {
+                            width = jsonObject.optInt(Const.WIDTH);
+                            localExtra.put("key_width", width);
+                            localExtra.put("tt_image_width", width);
+                            localExtra.put("mintegral_auto_render_native_width", width);
+                        }
+                        if (jsonObject.has(Const.HEIGHT)) {
+                            height = jsonObject.optInt(Const.HEIGHT);
+                            localExtra.put("key_height", height);
+                            localExtra.put("tt_image_height", height);
+                            localExtra.put("mintegral_auto_render_native_height", height);
+                        }
+
+                        MsgTools.pirntMsg("native setLocalExtra >>>  width: " + width + ", height: " + height);
+                        mATNative.setLocalExtra(localExtra);
+
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 mATNative.makeAdRequest();
             }
         });
@@ -197,7 +198,7 @@ public class NativeHelper extends BaseHelper {
 
 
     public void show(final String showConfig) {
-        MsgTools.pirntMsg("native show >>> " + mUnitId + ", config >>> " + showConfig);
+        MsgTools.pirntMsg("native show >>> " + mPlacementId + ", config >>> " + showConfig);
 
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
@@ -211,14 +212,14 @@ public class NativeHelper extends BaseHelper {
                     nativeAd.setNativeEventListener(new ATNativeEventListener() {
                         @Override
                         public void onAdImpressed(ATNativeAdView view, final ATAdInfo adInfo) {
-                            MsgTools.pirntMsg("onAdImpressed .." + mUnitId);
+                            MsgTools.pirntMsg("onAdImpressed .." + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.ShowCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.ShowCallbackKey)
-                                                + "('" + mUnitId + "','" + adInfo.toString() + "');");
+                                                + "('" + mPlacementId + "','" + adInfo.toString() + "');");
                                     }
                                 });
                             }
@@ -226,14 +227,14 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdClicked(ATNativeAdView view, final ATAdInfo adInfo) {
-                            MsgTools.pirntMsg("onAdClicked .." + mUnitId);
+                            MsgTools.pirntMsg("onAdClicked .." + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.ClickCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.ClickCallbackKey)
-                                                + "('" + mUnitId + "','" + adInfo.toString() + "');");
+                                                + "('" + mPlacementId + "','" + adInfo.toString() + "');");
                                     }
                                 });
                             }
@@ -241,14 +242,14 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdVideoStart(ATNativeAdView view) {
-                            MsgTools.pirntMsg("onAdVideoStart .." + mUnitId);
+                            MsgTools.pirntMsg("onAdVideoStart .." + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.VideoStartKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.VideoStartKey)
-                                                + "('" + mUnitId + "');");
+                                                + "('" + mPlacementId + "');");
                                     }
                                 });
                             }
@@ -256,14 +257,14 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdVideoEnd(ATNativeAdView view) {
-                            MsgTools.pirntMsg("onAdVideoEnd .." + mUnitId);
+                            MsgTools.pirntMsg("onAdVideoEnd .." + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.VideoEndKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.VideoEndKey)
-                                                + "('" + mUnitId + "');");
+                                                + "('" + mPlacementId + "');");
                                     }
                                 });
                             }
@@ -276,7 +277,7 @@ public class NativeHelper extends BaseHelper {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.VideoProgressKey)
-                                                + "('" + mUnitId + "','" + progress + "');");
+                                                + "('" + mPlacementId + "','" + progress + "');");
                                     }
                                 });
                             }
@@ -286,14 +287,14 @@ public class NativeHelper extends BaseHelper {
                     nativeAd.setDislikeCallbackListener(new ATNativeDislikeListener() {
                         @Override
                         public void onAdCloseButtonClick(ATNativeAdView atNativeAdView, final ATAdInfo atAdInfo) {
-                            MsgTools.pirntMsg("onAdCloseButtonClick .." + mUnitId);
+                            MsgTools.pirntMsg("onAdCloseButtonClick .." + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.CloseCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.CloseCallbackKey)
-                                                + "('" + mUnitId + "','" + atAdInfo.toString() + "');");
+                                                + "('" + mPlacementId + "','" + atAdInfo.toString() + "');");
                                     }
                                 });
                             }
@@ -322,7 +323,7 @@ public class NativeHelper extends BaseHelper {
                             @Override
                             public void run() {
                                 Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.LoadFailCallbackKey)
-                                        + "('" + mUnitId + "','" + "showNative error, nativeAd = null" + "');");
+                                        + "('" + mPlacementId + "','" + "showNative error, nativeAd = null" + "');");
                             }
                         });
                     }
@@ -336,7 +337,7 @@ public class NativeHelper extends BaseHelper {
     public boolean isAdReady() {
         mNativeAd = mATNative.getNativeAd();
         boolean isReady = mNativeAd != null;
-        MsgTools.pirntMsg("native isAdReady >>> " + mUnitId + ", " + isReady);
+        MsgTools.pirntMsg("native isAdReady >>> " + mPlacementId + ", " + isReady);
         return isReady;
     }
 
@@ -347,7 +348,7 @@ public class NativeHelper extends BaseHelper {
     }
 
     public void remove() {
-        MsgTools.pirntMsg("native remove..." + mUnitId);
+        MsgTools.pirntMsg("native remove..." + mPlacementId);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {

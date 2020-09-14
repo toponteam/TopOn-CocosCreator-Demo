@@ -27,6 +27,10 @@ public class Const {
     public static final String adLogo = "adLogo";
     public static final String cta = "cta";
 
+    public static class Interstital {
+        public static final String UseRewardedVideoAsInterstitial = "UseRewardedVideoAsInterstitial";
+    }
+
 
     public static class RewardVideoCallback {
         public static final String LoadedCallbackKey = "RewardedVideoLoaded";
