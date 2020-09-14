@@ -34,7 +34,9 @@ cc.Class({
     },
 
     loadAd : function () {
-        ATInterstitialJSSDK.loadInterstitial(this.placementID());
+		var setting = {};
+        setting[ATInterstitialJSSDK.UseRewardedVideoAsInterstitial] = true;
+        ATInterstitialJSSDK.loadInterstitial(this.placementID(), setting);
     },
 
     showAd : function () {

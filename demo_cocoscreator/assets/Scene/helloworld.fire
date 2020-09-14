@@ -58,7 +58,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": false,
-    "_id": "2d2f792f-a40c-49bb-a189-ed176a246e49"
+    "_id": "41080328-d4b1-46a5-a0d9-6c38bb39886f"
   },
   {
     "__type__": "cc.Node",
@@ -94,6 +94,9 @@
       },
       {
         "__id__": 22
+      },
+      {
+        "__id__": 23
       }
     ],
     "_prefab": null,
@@ -183,7 +186,7 @@
       "array": [
         0,
         0,
-        525.6774200971543,
+        383.64925387650635,
         0,
         0,
         0,
@@ -349,9 +352,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "410fb916-8721-4663-bab8-34397391ace7"
-    },
+    "_spriteFrame": null,
     "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -443,9 +444,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "31bc895a-c003-4566-a9f3-2e54ae1c17dc"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -934,7 +933,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "280c3rsZJJKnZ9RqbALVwtK",
+    "_componentId": "e3b831GiZZK77tC/nsZDosD",
     "handler": "initSDK",
     "customEventData": ""
   },
@@ -993,5 +992,17 @@
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "b5WXBvlKNCi6zog06qy2Se"
+  },
+  {
+    "__type__": "e3b831GiZZK77tC/nsZDosD",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "label": null,
+    "text": "Hello, World!",
+    "_id": "13Pln9d2NJ+aibdSbaWuZQ"
   }
 ]

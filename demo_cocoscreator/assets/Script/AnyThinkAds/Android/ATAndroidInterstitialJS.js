@@ -1,9 +1,9 @@
 var classJavaName = "com/anythink/cocosjs/ATInterstitialJSBridge";
 var ATAndroidInterstitialJS = ATAndroidInterstitialJS || {
-  
-    loadInterstitial : function (placementId) {
+	
+	loadInterstitial : function (placementId, settings) {
         cc.log("Android-loadInterstitial");
-		jsb.reflection.callStaticMethod(classJavaName, "load", "(Ljava/lang/String;)V", placementId);
+		jsb.reflection.callStaticMethod(classJavaName, "load", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, settings);
     },
 
     setAdListener : function (listener) {

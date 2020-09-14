@@ -35,16 +35,22 @@ cc.Class({
 
     loadAd : function () {
         ATJSSDK.printLog("AnyThinkBannerDemo::loadAd(" + this.placementID() + ")");
-        ATBannerJSSDK.loadBanner(this.placementID(), ATBannerJSSDK.createLoadAdSize(cc.view.getFrameSize().width, 150));
+		var setting = {};
+        setting[ATBannerJSSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerJSSDK.createLoadAdSize(cc.view.getFrameSize().width, 150);
+        setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveWidth] = cc.view.getFrameSize().width;
+		// setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationCurrent;
+		setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationPortrait;
+		// setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationLandscape;
+        ATBannerJSSDK.loadBanner(this.placementID(), setting);
     },
 
     showAd : function () {
         // ATBannerJSSDK.showAdInRectangle(this.placementID(), ATBannerJSSDK.createShowAdRect(0, 150, cc.view.getFrameSize().width, 150));
-         ATBannerJSSDK.showAdInPosistion(this.placementID(), ATBannerJSSDK.kATBannerAdShowingPisitionBottom);
+         ATBannerJSSDK.showAdInPosition(this.placementID(), ATBannerJSSDK.kATBannerAdShowingPositionBottom);
     },
 
     removeAd : function () {
-        ATBannerJSSDK.rewoveAd(this.placementID());
+        ATBannerJSSDK.removeAd(this.placementID());
     },
 
     reShowAd : function () {

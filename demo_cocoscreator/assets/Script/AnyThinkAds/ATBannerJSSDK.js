@@ -15,8 +15,15 @@ var platformBridge = initPlatformBridge();
 
 var ATBannerSDK = ATBannerSDK || {
     kATBannerAdLoadingExtraBannerAdSizeStruct: "banner_ad_size_struct",
-	kATBannerAdShowingPisitionTop : "top",
-    kATBannerAdShowingPisitionBottom : "bottom",
+	kATBannerAdShowingPositionTop : "top",
+    kATBannerAdShowingPositionBottom : "bottom",
+	
+	kATBannerAdInlineAdaptiveWidth : "inline_adaptive_width",
+	kATBannerAdInlineAdaptiveOrientation : "inline_adaptive_orientation",
+	kATBannerAdInlineAdaptiveOrientationCurrent : 0,
+	kATBannerAdInlineAdaptiveOrientationPortrait : 1,
+	kATBannerAdInlineAdaptiveOrientationLandscape : 2,
+	
 
     ATBannerListener : {
         developerCallback : null,
@@ -68,6 +75,13 @@ var ATBannerSDK = ATBannerSDK || {
     loadBanner : function(placementId, settings={}) {
 
         if (undefined != platformBridge && platformBridge != null) {
+			
+			if (settings.hasOwnProperty(ATBannerSDK.kATBannerAdLoadingExtraBannerAdSizeStruct)) {
+				var loadAdSize = settings[ATBannerSDK.kATBannerAdLoadingExtraBannerAdSizeStruct];
+				settings["width"] = loadAdSize["width"];
+				settings["height"] = loadAdSize["height"];
+			}
+			
             platformBridge.loadBanner(placementId, JSON.stringify(settings));
         } else {
             cc.log("You must run on Android or iOS.");
@@ -101,9 +115,9 @@ var ATBannerSDK = ATBannerSDK || {
         return false;
     },
 
-    showAdInPosistion : function(placementId, position) {
+    showAdInPosition : function(placementId, position) {
         if (undefined != platformBridge && platformBridge != null) {
-           platformBridge.showAdInPosistion(placementId, position);
+           platformBridge.showAdInPosition(placementId, position);
         } else {
             cc.log("You must run on Android or iOS.");
         }
@@ -118,9 +132,9 @@ var ATBannerSDK = ATBannerSDK || {
     },
 
 
-    rewoveAd : function(placementId) {
+    removeAd : function(placementId) {
         if (undefined != platformBridge && platformBridge != null) {
-           platformBridge.rewoveAd(placementId);
+           platformBridge.removeAd(placementId);
         } else {
             cc.log("You must run on Android or iOS.");
         }

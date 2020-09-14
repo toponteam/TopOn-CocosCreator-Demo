@@ -67,7 +67,7 @@ cc.Class({
     },
 
     removeAd : function () {
-        ATNativeJSSDK.rewoveAd(this.placementID());
+        ATNativeJSSDK.removeAd(this.placementID());
     },
 
     checkReady : function () {

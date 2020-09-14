@@ -58,7 +58,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": false,
-    "_id": "4b83d85d-e235-45e2-8989-a68deaededfa"
+    "_id": "c82d0a5c-56e5-4d66-97e2-db4d5749ca77"
   },
   {
     "__type__": "cc.Node",
@@ -100,6 +100,9 @@
       },
       {
         "__id__": 44
+      },
+      {
+        "__id__": 45
       }
     ],
     "_prefab": null,
@@ -189,7 +192,7 @@
       "array": [
         0,
         0,
-        302.2428659207691,
+        383.64925387650635,
         0,
         0,
         0,
@@ -844,7 +847,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "9b0c2claXpMzoMdp9qT8JqX",
+    "_componentId": "bf22eqCIpNCxbQ8rYOyG3dP",
     "handler": "gotoRewardedVideoScene",
     "customEventData": ""
   },
@@ -1228,7 +1231,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "9b0c2claXpMzoMdp9qT8JqX",
+    "_componentId": "bf22eqCIpNCxbQ8rYOyG3dP",
     "handler": "gotoInterstitialScene",
     "customEventData": ""
   },
@@ -1612,7 +1615,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "9b0c2claXpMzoMdp9qT8JqX",
+    "_componentId": "bf22eqCIpNCxbQ8rYOyG3dP",
     "handler": "gotoNativeScene",
     "customEventData": ""
   },
@@ -1996,7 +1999,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "9b0c2claXpMzoMdp9qT8JqX",
+    "_componentId": "bf22eqCIpNCxbQ8rYOyG3dP",
     "handler": "gotoBannerScene",
     "customEventData": ""
   },
@@ -2055,5 +2058,17 @@
     "label": null,
     "text": "Hello, World!",
     "_id": "89YxU025JAMIqtbsTZJdct"
+  },
+  {
+    "__type__": "bf22eqCIpNCxbQ8rYOyG3dP",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "label": null,
+    "text": "Hello, World!",
+    "_id": "f1IkTJRKVKCKbcggXPKONJ"
   }
 ]

@@ -21,8 +21,8 @@ var ATAndroidBannerJS = ATAndroidBannerJS || {
 		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, adViewProperty);
     },
     
-    rewoveAd : function(placementId) {
-         cc.log("Android-rewoveAd");
+    removeAd : function(placementId) {
+         cc.log("Android-removeAd");
 		 jsb.reflection.callStaticMethod(classJavaName, "remove", "(Ljava/lang/String;)V", placementId);
     }
   

@@ -1,9 +1,9 @@
 var ATiOSJS = require("ATiOSJS");
 const OC_WRAPPER_CLASS = "ATInterstitialAdWrapper";
 var ATiOSInterstitialJS = ATiOSInterstitialJS || {
-    loadInterstitial : function (placementId) {
-        ATiOSJS.printJsLog("ATiOSInterstitialJS::loadInterstitial(" + placementId + ")");
-        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "loadInterstitialWithPlacementID:extra:", placementId, null);
+    loadInterstitial : function (placementId, extra) {
+        ATiOSJS.printJsLog("ATiOSInterstitialJS::loadInterstitial(" + placementId + ", " + extra + ")");
+        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "loadInterstitialWithPlacementID:extra:", placementId, extra);
     },
 
     setAdListener : function (listener) {

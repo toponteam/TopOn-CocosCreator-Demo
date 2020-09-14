@@ -106,9 +106,9 @@ var ATNativeSDK = ATNativeSDK || {
         }
     },
 
-    rewoveAd : function(placementId) {
+    removeAd : function(placementId) {
         if (undefined != platformBridge && platformBridge != null) {
-           platformBridge.rewoveAd(placementId);
+           platformBridge.removeAd(placementId);
         } else {
             cc.log("You must run on Android or iOS.");
         }

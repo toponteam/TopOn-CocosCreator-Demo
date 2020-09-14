@@ -1,4 +1,3 @@
-
 var ATAndroidRewardedVideoJS = require("./Android/ATAndroidRewardedVideoJS");
 var ATiOSRewardedVideoJS = require("./iOS/ATiOSRewardedVideoJS");
 

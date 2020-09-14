@@ -1,5 +1,7 @@
 {
-  "excludeScenes": [],
+  "excludeScenes": [
+    "d95a2a0a-89fe-41fd-8808-33498afc2262"
+  ],
   "orientation": {
     "landscapeLeft": false,
     "landscapeRight": false,

@@ -16,8 +16,8 @@ var ATiOSBannerJS = ATiOSBannerJS || {
         return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "bannerReadyForPlacementID:", placementId);
     },
 
-    showAdInPosistion : function(placementId, position) { 
-        ATiOSJS.printJsLog("ATiOSBannerJS::showAdInPosistion(" + placementId + ", " + position + ")");
+    showAdInPosition : function(placementId, position) { 
+        ATiOSJS.printJsLog("ATiOSBannerJS::showAdInPosition(" + placementId + ", " + position + ")");
         jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showBannerWithPlacementID:position:", placementId, position);
     },
 
@@ -26,9 +26,9 @@ var ATiOSBannerJS = ATiOSBannerJS || {
         jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showBannerWithPlacementID:rect:", placementId, showAdRect);
     },
 
-    rewoveAd : function(placementId) {
-        ATiOSJS.printJsLog("ATiOSBannerJS::rewoveAd(" + placementId + ")");
-        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "rewoveAd:", placementId);
+    removeAd : function(placementId) {
+        ATiOSJS.printJsLog("ATiOSBannerJS::removeAd(" + placementId + ")");
+        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "removeAd:", placementId);
     },
 
     reShowAd : function(placementId) {

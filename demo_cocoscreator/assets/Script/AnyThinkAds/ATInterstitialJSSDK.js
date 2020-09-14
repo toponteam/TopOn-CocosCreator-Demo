@@ -14,6 +14,7 @@ var platformBridge = initPlatformBridge();
 
 var ATInterstitialSDK = ATInterstitialSDK || {
 
+	UseRewardedVideoAsInterstitial: "UseRewardedVideoAsInterstitial",
 
     ATInterstitialListener : {
         developerCallback : null,
@@ -74,10 +75,10 @@ var ATInterstitialSDK = ATInterstitialSDK || {
         
     },
     
-    loadInterstitial : function(placementId) {
+	loadInterstitial : function(placementId, settings={}) {
 
         if (undefined != platformBridge && platformBridge != null) {
-            platformBridge.loadInterstitial(placementId);
+            platformBridge.loadInterstitial(placementId, JSON.stringify(settings));
         } else {
             cc.log("You must run on Android or iOS.");
         }

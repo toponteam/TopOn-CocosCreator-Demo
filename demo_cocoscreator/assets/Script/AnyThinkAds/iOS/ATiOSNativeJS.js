@@ -21,8 +21,8 @@ var ATiOSNativeJS = ATiOSNativeJS || {
         jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showNativeWithPlacementID:metrics:", placementId, adViewProperty);
     },
 
-    rewoveAd : function(placementId) {
-        ATiOSJS.printJsLog("ATiOSNativeJS::rewoveAd(" + placementId + ")");
+    removeAd : function(placementId) {
+        ATiOSJS.printJsLog("ATiOSNativeJS::removeAd(" + placementId + ")");
         jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "removeNativeWithPlacementID:", placementId);
     }
 };
