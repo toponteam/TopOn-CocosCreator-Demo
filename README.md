@@ -1,13 +1,26 @@
-# demo_cocoscreator
+# TopOn-CocosCreator-Demo for CocosCreator
 
-<h3>TopOn cocoscreator SDK的集成指引</h3>
+TopOn is an ad mediation platform that helps global app developers manage ad networks conveniently and maximize revenue lightly. Especially in China, TopOn becomes the Top #1 mediation platform. Until now, We have cooperated with around 400 companies. We have supported rich local advertising platform resources and lots of global ad platforms. 
 
-<a href="https://docs.toponad.com/#/zh-cn/cocoscreator/cocoscreator_doc/cocoscreator_access_doc" target="_blank">Topon cocoscreator SDK的集成文档（中文版）</a>
 
-<a href="https://docs.toponad.com/#/en-us/cocoscreator/cocoscreator_doc/cocoscreator_access_doc" target="_blank">TopOn-cocoscreator-Integration (English)</a>
+## Communication
+Official website ： https://www.toponad.com/
 
-TopOn cocoscreator SDK下载地址：
+Business Cooperation : business@toponad.com
 
-<a href="https://docs.toponad.com/#/zh-cn/cocoscreator/cocoscreator_doc/release_note" target="_blank">TopOn cocoscreator SDK(中文）</a>
+Market Cooperation : leon@toponad.com
 
-<a href="https://docs.toponad.com/#/en-us/cocoscreator/cocoscreator_doc/release_note" target="_blank">TopOn cocoscreator  SDK(English）</a>
+Technical Support : support@toponad.com
+
+QQ & wechat 188108875(Harry)
+
+
+
+## Integration instructions
+This project only contains TopOn SDK source code. If you need to test a third-party advertising platform, please download from the following URL
+
+https://docs.toponad.com/#/en-us/cocoscreator/cocoscreator_doc/cocoscreator_access_doc
+
+## LICENSE
+
+See the [LICENSE](LICENSE) file.
