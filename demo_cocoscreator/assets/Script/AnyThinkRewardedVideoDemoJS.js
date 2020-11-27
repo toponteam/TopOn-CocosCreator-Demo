@@ -49,6 +49,10 @@ cc.Class({
 
     checkReady : function () {
         ATJSSDK.printLog("AnyThinkRewardedVideoDemo::checkReady()   " + (ATRewardedVideoJSSDK.hasAdReady(this.placementID()) ? "Ready" : "No"));
+
+        var adStatusInfo = ATRewardedVideoJSSDK.checkAdStatus(this.placementID());
+        ATJSSDK.printLog("AnyThinkRewardedVideoDemo::checkAdStatus()   " + adStatusInfo);
+
     },
 
     //Callbacks

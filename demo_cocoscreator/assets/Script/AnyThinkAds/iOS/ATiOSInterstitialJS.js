@@ -16,6 +16,11 @@ var ATiOSInterstitialJS = ATiOSInterstitialJS || {
         return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "interstitialReadyForPlacementID:", placementId);
     },
 
+    checkAdStatus : function (placementId) {
+        ATiOSJS.printJsLog("ATiOSInterstitialJS::checkAdStatus(" + placementId + ")");
+        return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "checkAdStatus:", placementId);
+    },
+
     setUserData : function (placementId, userId, userData) {
          cc.log("Android-setUserData");
     },

@@ -8,12 +8,16 @@ import com.anythink.cocosjs.utils.Const;
 import com.anythink.cocosjs.utils.JSPluginUtil;
 import com.anythink.cocosjs.utils.MsgTools;
 import com.anythink.core.api.ATAdInfo;
+import com.anythink.core.api.ATAdStatusInfo;
 import com.anythink.core.api.AdError;
 import com.anythink.rewardvideo.api.ATRewardVideoAd;
 import com.anythink.rewardvideo.api.ATRewardVideoListener;
 
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RewardVideoHelper extends BaseHelper {
 
@@ -180,10 +184,14 @@ public class RewardVideoHelper extends BaseHelper {
                 }
 
                 if (!TextUtils.isEmpty(settings)) {
+                    Map<String, Object> localExtra = new HashMap<>();
+
                     String userId = "";
                     String userData = "";
                     try {
                         JSONObject jsonObject = new JSONObject(settings);
+
+                        fillMapFromJsonObject(localExtra, jsonObject);
 
                         if (jsonObject.has(Const.USER_ID)) {
                             userId = jsonObject.optString(Const.USER_ID);
@@ -191,10 +199,15 @@ public class RewardVideoHelper extends BaseHelper {
                         if (jsonObject.has(Const.USER_DATA)) {
                             userData = jsonObject.optString(Const.USER_DATA);
                         }
+
+                        localExtra.put("user_id", userId);
+                        localExtra.put("user_custom_data", userData);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    mRewardVideoAd.setUserData(userId, userData);
+
+                    mRewardVideoAd.setLocalExtra(localExtra);
                 }
 
                 mRewardVideoAd.load();
@@ -245,4 +258,28 @@ public class RewardVideoHelper extends BaseHelper {
         }
         return isReady;
     }
+
+    public String checkAdStatus() {
+        MsgTools.pirntMsg("video checkAdStatus >>> " + mPlacementId);
+
+        if (mRewardVideoAd != null) {
+            ATAdStatusInfo atAdStatusInfo = mRewardVideoAd.checkAdStatus();
+            boolean loading = atAdStatusInfo.isLoading();
+            boolean ready = atAdStatusInfo.isReady();
+            ATAdInfo atTopAdInfo = atAdStatusInfo.getATTopAdInfo();
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("isLoading", loading);
+                jsonObject.put("isReady", ready);
+                jsonObject.put("adInfo", atTopAdInfo);
+
+                return jsonObject.toString();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
+    }
+
 }

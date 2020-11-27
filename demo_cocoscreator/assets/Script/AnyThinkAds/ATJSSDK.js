@@ -24,6 +24,38 @@ var ATSDK = ATSDK || {
     PERSONALIZED : 0,
     NONPERSONALIZED :1,
     UNKNOWN : 2,
+    
+    
+    //for android and ios
+    OS_VERSION_NAME : "os_vn",
+    OS_VERSION_CODE : "os_vc",
+    APP_PACKAGE_NAME : "package_name",
+    APP_VERSION_NAME : "app_vn",
+    APP_VERSION_CODE : "app_vc",
+
+    BRAND : "brand",
+    MODEL : "model",
+    DEVICE_SCREEN_SIZE : "screen",
+    MNC : "mnc",
+    MCC : "mcc",
+
+    LANGUAGE : "language",
+    TIMEZONE : "timezone",
+    USER_AGENT : "ua",
+    ORIENTATION : "orient",
+    NETWORK_TYPE : "network_type",
+
+    //for android
+    INSTALLER : "it_src",
+    ANDROID_ID : "android_id",
+    GAID : "gaid",
+    MAC : "mac",
+    IMEI : "imei",
+    OAID : "oaid",
+    
+    //for ios
+    IDFA : "idfa",
+    IDFV : "idfv",
 
     ATSDKListener : {
         userLocationCallback : null,
@@ -116,7 +148,32 @@ var ATSDK = ATSDK || {
             }
                 
         }
-    }
+    },
+
+    deniedUploadDeviceInfo : function (deniedInfo) {
+        if (undefined != platformBridge && platformBridge != null) {
+			
+			if (deniedInfo != null) {
+				var length = deniedInfo.length;
+				var deniedInfoString = "";
+				for (var i = 0; i < length; i++) {
+					var info = deniedInfo[i];
+					if (i == 0) {
+						deniedInfoString = info;
+					} else {
+						deniedInfoString = deniedInfoString + "," + info;
+					}
+				}
+				
+				cc.log("test__" + deniedInfoString)
+				
+				platformBridge.deniedUploadDeviceInfo(deniedInfoString);
+			}
+			
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+    },
   
 };
 

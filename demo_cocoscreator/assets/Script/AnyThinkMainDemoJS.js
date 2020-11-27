@@ -43,6 +43,51 @@ cc.Class({
         ATJSSDK.printLog("Current GDPR Level :" + GDPRLevel);
 
 
+        if (cc.sys.os === cc.sys.OS_ANDROID) {           
+            ATJSSDK.deniedUploadDeviceInfo([
+                ATJSSDK.OS_VERSION_NAME,
+                ATJSSDK.OS_VERSION_CODE,
+                ATJSSDK.APP_PACKAGE_NAME,
+                ATJSSDK.APP_VERSION_NAME,
+                ATJSSDK.APP_VERSION_CODE,
+                ATJSSDK.BRAND,
+                ATJSSDK.MODEL,
+                ATJSSDK.DEVICE_SCREEN_SIZE,
+                ATJSSDK.MNC,
+                ATJSSDK.MCC,
+                ATJSSDK.LANGUAGE,
+                ATJSSDK.TIMEZONE,
+                ATJSSDK.USER_AGENT,
+                ATJSSDK.ORIENTATION,
+                ATJSSDK.NETWORK_TYPE,
+                ATJSSDK.INSTALLER,
+                ATJSSDK.ANDROID_ID,
+                ATJSSDK.GAID,
+                ATJSSDK.IMEI,
+                ATJSSDK.OAID]);
+        } else if (cc.sys.os === cc.sys.OS_IOS) {
+            // ATJSSDK.deniedUploadDeviceInfo([
+            //     ATJSSDK.OS_VERSION_NAME,
+            //     ATJSSDK.OS_VERSION_CODE,
+            //     ATJSSDK.APP_PACKAGE_NAME,
+            //     ATJSSDK.APP_VERSION_NAME,
+            //     ATJSSDK.APP_VERSION_CODE,
+            //     ATJSSDK.BRAND,
+            //     ATJSSDK.MODEL,
+            //     ATJSSDK.DEVICE_SCREEN_SIZE,
+            //     ATJSSDK.MNC,
+            //     ATJSSDK.MCC,
+            //     ATJSSDK.LANGUAGE,
+            //     ATJSSDK.TIMEZONE,
+            //     ATJSSDK.USER_AGENT,
+            //     ATJSSDK.ORIENTATION,
+            //     ATJSSDK.NETWORK_TYPE,
+            //     ATJSSDK.IDFA,
+            //     ATJSSDK.IDFV]);
+        }
+
+        
+
         if (cc.sys.os === cc.sys.OS_IOS) {           
             ATJSSDK.initSDK("a5b0e8491845b3", "7eae0567827cfe2b22874061763f30c9");
         } else if (cc.sys.os === cc.sys.OS_ANDROID) {
@@ -59,6 +104,7 @@ cc.Class({
                 }
             }
         });
+
     },
 
     // use this for initialization

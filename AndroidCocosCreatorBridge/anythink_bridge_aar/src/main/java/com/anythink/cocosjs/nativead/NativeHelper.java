@@ -122,6 +122,7 @@ public class NativeHelper extends BaseHelper {
                         }
 
                         MsgTools.pirntMsg("native setLocalExtra >>>  width: " + width + ", height: " + height);
+                        fillMapFromJsonObject(localExtra, jsonObject);
                         mATNative.setLocalExtra(localExtra);
 
                     } catch (Throwable e) {

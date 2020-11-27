@@ -16,6 +16,11 @@ var ATAndroidInterstitialJS = ATAndroidInterstitialJS || {
         return jsb.reflection.callStaticMethod(classJavaName, "isAdReady", "(Ljava/lang/String;)Z", placementId);
     },
 
+    checkAdStatus : function(placementId) {
+        cc.log("Android-checkAdStatus:" + placementId);
+        return jsb.reflection.callStaticMethod(classJavaName, "checkAdStatus", "(Ljava/lang/String;)Ljava/lang/String;", placementId);
+    },
+
     showAd : function(placementId) {
         cc.log("Android-showAd:" + placementId);
 		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;)V", placementId);
@@ -24,8 +29,8 @@ var ATAndroidInterstitialJS = ATAndroidInterstitialJS || {
     showAdInScenario : function(placementId, scenario) {
          cc.log("Android-showAdInScenario:" + placementId + "---" + scenario);
 		 jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, scenario);
-    } 
-  
+    }
+
 };
 
 module.exports = ATAndroidInterstitialJS;

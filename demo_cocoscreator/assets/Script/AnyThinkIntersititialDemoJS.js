@@ -45,7 +45,11 @@ cc.Class({
     },
 
     checkReady : function () {
-        var isReady = ATInterstitialJSSDK.hasAdReady(this.placementID());
+        ATJSSDK.printLog("AnyThinkInterstitialDemo::checkReady()   " + (ATInterstitialJSSDK.hasAdReady(this.placementID()) ? "Ready" : "No"));
+
+        var adStatusInfo = ATInterstitialJSSDK.checkAdStatus(this.placementID());
+        ATJSSDK.printLog("AnyThinkInterstitialDemo::checkAdStatus()   " + adStatusInfo);
+
     },
 
     onInterstitialAdLoaded : function (placementId) {

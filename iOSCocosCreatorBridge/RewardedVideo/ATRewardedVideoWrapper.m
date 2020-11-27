@@ -48,6 +48,16 @@ static NSString *const kShowExtraSceneKey = @"scenario";
     return [[ATAdManager sharedManager] rewardedVideoReadyForPlacementID:placementID];
 }
 
++(NSString*) checkAdStatus:(NSString *)placementID {
+    ATCheckLoadModel *checkLoadModel = [[ATAdManager sharedManager] checkRewardedVideoLoadStatusForPlacementID:placementID];
+    NSMutableDictionary *statusDict = [NSMutableDictionary dictionary];
+    statusDict[@"isLoading"] = @(checkLoadModel.isLoading);
+    statusDict[@"isReady"] = @(checkLoadModel.isReady);
+    statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
+    NSLog(@"ATRewardedVideoWrapper::statusDict = %@", statusDict);
+    return statusDict.jsonString_AnyThinkJS;
+}
+
 +(void) showRewardedVideoWithPlacementID:(NSString*)placementID scene:(NSString*)scene {
     NSLog(@"ATRewardedVideoWrapper::showRewardedVideoWithPlacementID:%@ scene:%@", placementID, scene);
     [[ATAdManager sharedManager] showRewardedVideoWithPlacementID:placementID scene:scene inViewController:[UIApplication sharedApplication].delegate.window.rootViewController delegate:[ATRewardedVideoWrapper sharedWrapper]];
@@ -80,12 +90,12 @@ static NSString *const kShowExtraSceneKey = @"scenario";
 
 -(void) rewardedVideoDidCloseForPlacementID:(NSString*)placementID rewarded:(BOOL)rewarded extra:(NSDictionary *)extra {
     NSLog(@"ATRewardedVideoWrapper::rewardedVideoDidCloseForPlacementID:%@ rewarded:%@ extra:%@", placementID, rewarded ? @"1" : @"0", extra);
-    if ([extra[kATRewardedVideoCallbackExtraNetworkIDKey]  integerValue] == 35) {
+    if ([NSThread isMainThread]) {
+        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
         });
-    } else {
-        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
     }
 }
 

@@ -45,6 +45,11 @@ var ATiOSJS = ATiOSJS || {
         if (undefined != msg && msg != null) {
             jsb.reflection.callStaticMethod(OC_BIRDGE_CLASS, "log:", msg);
         }
+    },
+
+    deniedUploadDeviceInfo : function (deniedInfo) {
+        this.printJsLog("ATiOSJS::deniedUploadDeviceInfo(" + deniedInfo + ")");
+        jsb.reflection.callStaticMethod(OC_ATSDK_MANAGER_CLASS, "deniedUploadDeviceInfo:", deniedInfo);
     }
   
 };

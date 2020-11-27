@@ -43,6 +43,13 @@ public class ATInterstitialJSBridge {
         return false;
     }
 
+    public static String checkAdStatus(String placementId) {
+        InterstitialHelper helper = getHelper(placementId);
+        if (helper != null) {
+            return helper.checkAdStatus();
+        }
+        return "";
+    }
 
     private static InterstitialHelper getHelper(String placementId) {
         InterstitialHelper helper;

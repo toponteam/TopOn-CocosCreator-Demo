@@ -23,7 +23,13 @@ var ATBannerSDK = ATBannerSDK || {
 	kATBannerAdInlineAdaptiveOrientationCurrent : 0,
 	kATBannerAdInlineAdaptiveOrientationPortrait : 1,
 	kATBannerAdInlineAdaptiveOrientationLandscape : 2,
-	
+
+	kATBannerAdAdaptiveWidth : "adaptive_width",
+	kATBannerAdAdaptiveOrientation : "adaptive_orientation",
+	kATBannerAdAdaptiveOrientationCurrent : 0,
+	kATBannerAdAdaptiveOrientationPortrait : 1,
+	kATBannerAdAdaptiveOrientationLandscape : 2,
+
 
     ATBannerListener : {
         developerCallback : null,

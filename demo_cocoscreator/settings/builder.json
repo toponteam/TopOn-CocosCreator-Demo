@@ -1,6 +1,6 @@
 {
   "excludeScenes": [
-    "d95a2a0a-89fe-41fd-8808-33498afc2262"
+    "41080328-d4b1-46a5-a0d9-6c38bb39886f"
   ],
   "orientation": {
     "landscapeLeft": false,
@@ -9,7 +9,7 @@
     "upsideDown": false
   },
   "packageName": "org.cocos2d.helloworld",
-  "startScene": "4b83d85d-e235-45e2-8989-a68deaededfa",
+  "startScene": "c82d0a5c-56e5-4d66-97e2-db4d5749ca77",
   "title": "AnyThinkSDKDemo",
   "webOrientation": "auto",
   "includeSDKBox": false,

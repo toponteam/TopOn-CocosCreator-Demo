@@ -36,6 +36,10 @@ var ATAndroidJS = ATAndroidJS || {
 
     setLogDebug : function (debug) {
         jsb.reflection.callStaticMethod(classJavaName, "setLogDebug", "(Z)V", debug);
+    },
+
+    deniedUploadDeviceInfo : function (deniedInfo) {
+        jsb.reflection.callStaticMethod(classJavaName, "deniedUploadDeviceInfo", "(Ljava/lang/String;)V", deniedInfo);
     }
   
 };

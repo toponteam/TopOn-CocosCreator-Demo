@@ -44,6 +44,13 @@ public class ATRewardedVideoJSBridge {
         return false;
     }
 
+    public static String checkAdStatus(String placementId) {
+        RewardVideoHelper helper = getHelper(placementId);
+        if (helper != null) {
+            return helper.checkAdStatus();
+        }
+        return "";
+    }
 
     private static RewardVideoHelper getHelper(String placementId) {
         RewardVideoHelper helper;

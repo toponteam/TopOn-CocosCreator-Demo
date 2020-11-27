@@ -38,3 +38,20 @@ android {
 dependencies {
     compileOnly fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
+
+
+task copyTask {
+    doLast {
+        copy {
+            from 'build/outputs/aar/anythink_cocosjs_bridge.aar'
+            into 'release/'
+        }
+        copy {
+            from 'build/outputs/aar/anythink_cocosjs_bridge.aar'
+            into '../../demo_cocoscreator/build-templates/jsb-default/frameworks/runtime-src/proj.android-studio/app/libs'
+        }
+    }
+}
+
+assemble.finalizedBy(copyTask)
+

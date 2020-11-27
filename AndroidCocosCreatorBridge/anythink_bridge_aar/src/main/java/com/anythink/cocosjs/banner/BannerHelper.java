@@ -48,7 +48,7 @@ public class BannerHelper extends BaseHelper {
         MsgTools.pirntMsg("initBanner >>> " + placementId);
 
         mBannerView = new ATBannerView(mActivity);
-        mBannerView.setUnitId(mPlacementId);
+        mBannerView.setPlacementId(mPlacementId);
         mBannerView.setBannerAdListener(new ATBannerListener() {
             @Override
             public void onBannerLoaded() {

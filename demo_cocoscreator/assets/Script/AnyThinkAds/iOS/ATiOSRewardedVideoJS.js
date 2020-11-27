@@ -16,6 +16,11 @@ var ATiOSRewardedVideoJS = ATiOSRewardedVideoJS || {
         return jsb.reflection.callStaticMethod(OC_RV_WRAPPER_CLASS, "rewardedVideoReadyForPlacementID:", placementId);
     },
 
+    checkAdStatus : function (placementId) {
+        ATiOSJS.printJsLog("ATiOSRewardedVideoJS::checkAdStatus(" + placementId + ")");
+        return jsb.reflection.callStaticMethod(OC_RV_WRAPPER_CLASS, "checkAdStatus:", placementId);
+    },
+
     setUserData : function (placementId, userId, userData) {
          cc.log("Android-setUserData");
     },

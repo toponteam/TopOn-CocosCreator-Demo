@@ -66,4 +66,11 @@
     NSLog(@"ATSDKManager::setDataConsent:%@", log ? @"YES" : @"NO");
     [ATAPI setLogEnabled:log];
 }
+
++(void) deniedUploadDeviceInfo:(NSString*)deniedInfo {
+    NSArray *deniedInfoArray = [deniedInfo componentsSeparatedByString:@","];
+    NSLog(@"ATSDKManager::deniedUploadDeviceInfo before：%@ after: %@", deniedInfo, deniedInfoArray);
+    [[ATAPI sharedInstance] setDeniedUploadInfoArray:deniedInfoArray];
+}
+
 @end

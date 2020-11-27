@@ -121,4 +121,13 @@ public class ATJSBridge {
         MsgTools.pirntMsg("setLogDebug:" + isDebug);
         ATSDK.setNetworkLogDebug(isDebug);
     }
+
+    public static void deniedUploadDeviceInfo(String arrayString) {
+        MsgTools.pirntMsg("deniedUploadDeviceInfo " + arrayString);
+        if (!TextUtils.isEmpty(arrayString)) {
+            String[] split = arrayString.split(",");
+            ATSDK.deniedUploadDeviceInfo(split);
+        }
+    }
+
 }

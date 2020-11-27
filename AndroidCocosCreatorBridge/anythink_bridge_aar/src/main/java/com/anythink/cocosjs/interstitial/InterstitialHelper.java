@@ -8,6 +8,7 @@ import com.anythink.cocosjs.utils.Const;
 import com.anythink.cocosjs.utils.JSPluginUtil;
 import com.anythink.cocosjs.utils.MsgTools;
 import com.anythink.core.api.ATAdInfo;
+import com.anythink.core.api.ATAdStatusInfo;
 import com.anythink.core.api.AdError;
 import com.anythink.interstitial.api.ATInterstitial;
 import com.anythink.interstitial.api.ATInterstitialListener;
@@ -243,5 +244,28 @@ public class InterstitialHelper extends BaseHelper {
             return isReady;
         }
         return isReady;
+    }
+
+    public String checkAdStatus() {
+        MsgTools.pirntMsg("interstitial checkAdStatus >>> " + mPlacementId);
+
+        if (mInterstitialAd != null) {
+            ATAdStatusInfo atAdStatusInfo = mInterstitialAd.checkAdStatus();
+            boolean loading = atAdStatusInfo.isLoading();
+            boolean ready = atAdStatusInfo.isReady();
+            ATAdInfo atTopAdInfo = atAdStatusInfo.getATTopAdInfo();
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("isLoading", loading);
+                jsonObject.put("isReady", ready);
+                jsonObject.put("adInfo", atTopAdInfo);
+
+                return jsonObject.toString();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 }

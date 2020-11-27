@@ -16,6 +16,11 @@ var ATAndroidRewardedVideoJS = ATAndroidRewardedVideoJS || {
         return jsb.reflection.callStaticMethod(classJavaName, "isAdReady", "(Ljava/lang/String;)Z", placementId);
     },
 
+    checkAdStatus : function(placementId) {
+        cc.log("Android-checkAdStatus:" + placementId);
+        return jsb.reflection.callStaticMethod(classJavaName, "checkAdStatus", "(Ljava/lang/String;)Ljava/lang/String;", placementId);
+    },
+
     showAd : function(placementId) {
         cc.log("Android-rv_showAd:" + placementId);
 		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;)V", placementId);
@@ -24,7 +29,7 @@ var ATAndroidRewardedVideoJS = ATAndroidRewardedVideoJS || {
     showAdInScenario : function(placementId, scenario) {
         cc.log("Android-rv_showAdInScenario:" + placementId + "---" + scenario);
 		jsb.reflection.callStaticMethod(classJavaName, "show", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, scenario);
-    } 
+    }
   
 };
 

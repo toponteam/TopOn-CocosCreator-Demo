@@ -114,6 +114,15 @@ var ATInterstitialSDK = ATInterstitialSDK || {
         return false;
     },
 
+    checkAdStatus : function(placementId) {
+        if (undefined != platformBridge && platformBridge != null) {
+            return platformBridge.checkAdStatus(placementId);
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+        return "";
+    },
+
     showAd : function(placementId) {
         if (undefined != platformBridge && platformBridge != null) {
            platformBridge.showAd(placementId);

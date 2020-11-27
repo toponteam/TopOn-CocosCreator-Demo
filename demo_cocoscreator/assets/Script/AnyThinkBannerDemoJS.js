@@ -37,10 +37,10 @@ cc.Class({
         ATJSSDK.printLog("AnyThinkBannerDemo::loadAd(" + this.placementID() + ")");
 		var setting = {};
         setting[ATBannerJSSDK.kATBannerAdLoadingExtraBannerAdSizeStruct] = ATBannerJSSDK.createLoadAdSize(cc.view.getFrameSize().width, 150);
-        setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveWidth] = cc.view.getFrameSize().width;
-		// setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationCurrent;
-		setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationPortrait;
-		// setting[ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdInlineAdaptiveOrientationLandscape;
+        setting[ATBannerJSSDK.kATBannerAdAdaptiveWidth] = cc.view.getFrameSize().width;
+		// setting[ATBannerJSSDK.kATBannerAdAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdAdaptiveOrientationCurrent;
+		setting[ATBannerJSSDK.kATBannerAdAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdAdaptiveOrientationPortrait;
+		// setting[ATBannerJSSDK.kATBannerAdAdaptiveOrientation] = ATBannerJSSDK.kATBannerAdAdaptiveOrientationLandscape;
         ATBannerJSSDK.loadBanner(this.placementID(), setting);
     },
 

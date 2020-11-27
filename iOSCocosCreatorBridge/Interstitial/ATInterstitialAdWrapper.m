@@ -50,6 +50,16 @@ static NSString *const kDelegatesFailedToShowKey = @"InterstitialAdFailedToShow"
     return [[ATAdManager sharedManager] interstitialReadyForPlacementID:placementID];
 }
 
++(NSString*) checkAdStatus:(NSString *)placementID {
+    ATCheckLoadModel *checkLoadModel = [[ATAdManager sharedManager] checkInterstitialLoadStatusForPlacementID:placementID];
+    NSMutableDictionary *statusDict = [NSMutableDictionary dictionary];
+    statusDict[@"isLoading"] = @(checkLoadModel.isLoading);
+    statusDict[@"isReady"] = @(checkLoadModel.isReady);
+    statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
+    NSLog(@"ATInterstitialAdWrapper::statusDict = %@", statusDict);
+    return statusDict.jsonString_AnyThinkJS;
+}
+
 +(void) showInterstitialWithPlacementID:(NSString*)placementID scene:(NSString*)scene {
     NSLog(@"ATInterstitialAdWrapper::showInterstitialWithPlacementID:%@ scene:%@", placementID, scene);
     [[ATAdManager sharedManager] showInterstitialWithPlacementID:placementID scene:scene inViewController:[UIApplication sharedApplication].delegate.window.rootViewController delegate:[ATInterstitialAdWrapper sharedWrapper]];
@@ -94,12 +104,12 @@ static NSString *const kDelegatesFailedToShowKey = @"InterstitialAdFailedToShow"
 
 -(void) interstitialDidCloseForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
     NSLog(@"ATInterstitialAdWrapper::interstitialDidCloseForPlacementID:%@ extra:%@", placementID, extra);
-    if ([extra[kATInterstitialDelegateExtraNetworkIDKey]  integerValue] == 35) {
+    if ([NSThread isMainThread]) {
+        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
+    }else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
         });
-    } else {
-        [ATJSBridge callJSMethodWithString:[NSString stringWithFormat:@"%@('%@', '%@')", self.delegates[kDelegatesCloseKey], placementID, [extra jsonString_AnyThinkJS]]];
     }
 }
 
