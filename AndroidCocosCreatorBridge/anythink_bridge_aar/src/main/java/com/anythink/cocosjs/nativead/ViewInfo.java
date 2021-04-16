@@ -31,6 +31,7 @@ public class ViewInfo {
         protected String bgcolor = "";
         protected int textSize = 0;
         protected String textcolor = "";
+        protected boolean isCustomClick = false;
 
         protected String name;
 
@@ -130,7 +131,7 @@ public class ViewInfo {
     }
 
 
-    public INFO rootView, imgMainView, IconView, titleView, descView, adLogoView, ctaView, click;
+    public INFO rootView, imgMainView, IconView, titleView, descView, adLogoView, ctaView, dislikeView;
 
 
     public static ViewInfo createDefualtView(Activity pActivity) {
@@ -235,6 +236,9 @@ public class ViewInfo {
         }
         if (_jsonObject.has(Const.TEXT_SIZE)) {
             _info.textSize = _jsonObject.getInt(Const.TEXT_SIZE);
+        }
+        if (_jsonObject.has(Const.CUSTOM_CLICK)) {
+            _info.isCustomClick = _jsonObject.getBoolean(Const.CUSTOM_CLICK);
         }
 
         _info.name = name;

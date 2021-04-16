@@ -24,6 +24,7 @@ static NSString *const kDelegatesCloseButtonTappedKey = @"NativeCloseButtonTappe
 @property(nonatomic, readonly) UILabel *ratingLabel;
 @property(nonatomic, readonly) UIImageView *iconImageView;
 @property(nonatomic, readonly) UIImageView *mainImageView;
+@property(nonatomic, readonly) UIButton *dislikeButton;
 @end
 @implementation ATCCNativeAdView
 -(void) initSubviews {
@@ -54,6 +55,11 @@ static NSString *const kDelegatesCloseButtonTappedKey = @"NativeCloseButtonTappe
     _mainImageView = [UIImageView new];
     _mainImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:_mainImageView];
+    
+    _dislikeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *closeImg = [UIImage imageNamed:@"icon_webview_close" inBundle:[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"AnyThinkSDK" ofType:@"bundle"]] compatibleWithTraitCollection:nil];
+    [_dislikeButton setImage:closeImg forState:0];
+    [self addSubview:_dislikeButton];
 }
 
 -(NSArray<UIView*>*)clickableViews {
@@ -63,7 +69,7 @@ static NSString *const kDelegatesCloseButtonTappedKey = @"NativeCloseButtonTappe
 }
 
 -(void) configureMetrics:(NSDictionary*)metrics {
-    NSDictionary<NSString*, UILabel*> *viewsDict = @{@"title":_titleLabel, @"cta":_ctaLabel, @"desc":_textLabel, @"icon":_iconImageView, @"mainImage":_mainImageView, @"parent":self, @"rating":_ratingLabel};
+    NSDictionary<NSString*, UILabel*> *viewsDict = @{@"title":_titleLabel, @"cta":_ctaLabel, @"desc":_textLabel, @"icon":_iconImageView, @"mainImage":_mainImageView, @"parent":self, @"rating":_ratingLabel, @"dislike":_dislikeButton};
     [viewsDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UILabel * _Nonnull obj, BOOL * _Nonnull stop) {
         NSDictionary *metric = metrics[key];
         obj.frame = CGRectMake([metric[@"x"] doubleValue], [metric[@"y"] doubleValue], [metric[@"width"] doubleValue], [metric[@"height"] doubleValue]);
@@ -133,8 +139,19 @@ NSDictionary *parseNativeExtraJsonStr(NSString* jsonStr) {
     return [[ATAdManager sharedManager] nativeAdReadyForPlacementID:placementID];
 }
 
-+(void) showNativeWithPlacementID:(NSString*)placementID metrics:(NSString*)metricsJSONString {
-    NSLog(@"ATNativeAdWrapper::showNativeAdWithPlacementID:%@ metrics:%@", placementID, metricsJSONString);
++(NSString*) nativeCheckAdStatusForPlacementID:(NSString*)placementID {
+    NSLog(@"ATNativeAdWrapper::isNativeAdStatusForPlacementID:%@", placementID);
+    ATCheckLoadModel *checkLoadModel = [[ATAdManager sharedManager] checkNativeLoadStatusForPlacementID:placementID];
+    NSMutableDictionary *statusDict = [NSMutableDictionary dictionary];
+    statusDict[@"isLoading"] = @(checkLoadModel.isLoading);
+    statusDict[@"isReady"] = @(checkLoadModel.isReady);
+    statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
+    NSLog(@"ATNativeAdWrapper::statusDict = %@", statusDict);
+    return statusDict.jsonString_AnyThinkJS;
+}
+
++(void) showNativeWithPlacementID:(NSString*)placementID scene:(NSString*)scene metrics:(NSString*)metricsJSONString {
+    NSLog(@"ATNativeAdWrapper::showNativeAdWithPlacementID:%@ scene:%@ metrics:%@", placementID, scene, metricsJSONString);
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *metrics = [NSJSONSerialization JSONObjectWithString:metricsJSONString options:NSJSONReadingAllowFragments error:nil];
         ATNativeADConfiguration *config = [[ATNativeADConfiguration alloc] init];
@@ -142,7 +159,7 @@ NSDictionary *parseNativeExtraJsonStr(NSString* jsonStr) {
         config.renderingViewClass = [ATCCNativeAdView class];
         config.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         config.ADFrame = [metrics[@"parent"] isKindOfClass:[NSDictionary class]] ? CGRectMake([metrics[@"parent"][@"x"] doubleValue], [metrics[@"parent"][@"y"] doubleValue], [metrics[@"parent"][@"width"] doubleValue], [metrics[@"parent"][@"height"] doubleValue]) : CGRectZero;
-        ATCCNativeAdView *adView = [[ATAdManager sharedManager] retriveAdViewWithPlacementID:placementID configuration:config];
+        ATCCNativeAdView *adView = [[ATAdManager sharedManager] retriveAdViewWithPlacementID:placementID configuration:config scene:scene];
         if (adView != nil) {
             [ATNativeAdWrapper sharedWrapper].adViews[placementID] = adView;
             [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:adView];
@@ -193,6 +210,7 @@ NSDictionary *parseNativeExtraJsonStr(NSString* jsonStr) {
                         }
                     }
                 }
+                [adView bringSubviewToFront:adView.dislikeButton];
             } @catch (NSException *exception) {
                 //
             } @finally {

@@ -121,9 +121,26 @@ var ATBannerSDK = ATBannerSDK || {
         return false;
     },
 
+    checkAdStatus : function(placementId) {
+        if (undefined != platformBridge && platformBridge != null) {
+            return platformBridge.checkAdStatus(placementId);
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+        return "";
+    },
+
     showAdInPosition : function(placementId, position) {
         if (undefined != platformBridge && platformBridge != null) {
            platformBridge.showAdInPosition(placementId, position);
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+    },
+
+    showAdInPositionAndScenario : function(placementId, position, scenario) {
+        if (undefined != platformBridge && platformBridge != null) {
+           platformBridge.showAdInPosition(placementId, position, scenario);
         } else {
             cc.log("You must run on Android or iOS.");
         }
@@ -137,6 +154,13 @@ var ATBannerSDK = ATBannerSDK || {
         }
     },
 
+    showAdInRectangleAndScenario : function(placementId, showAdRect, scenario) {
+        if (undefined != platformBridge && platformBridge != null) {
+           platformBridge.showAdInRectangle(placementId, JSON.stringify(showAdRect), scenario);
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+    },
 
     removeAd : function(placementId) {
         if (undefined != platformBridge && platformBridge != null) {

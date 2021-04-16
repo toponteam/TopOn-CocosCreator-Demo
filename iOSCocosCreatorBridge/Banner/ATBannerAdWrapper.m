@@ -105,10 +105,21 @@ static NSString *const kDelegatesShowKey = @"BannerShow";
     return [[ATAdManager sharedManager] bannerAdReadyForPlacementID:placementID];
 }
 
-+(void) showBannerWithPlacementID:(NSString*)placementID position:(NSString*)position {
-    NSLog(@"ATBannerAdWrapper::showBannerWithPlacementID:%@ position:%@", placementID, position);
++(NSString*) bannerCheckAdStatusForPlacementID:(NSString*)placementID {
+    NSLog(@"ATBannerAdWrapper::bannerAdStatusForPlacementID:%@", placementID);
+    ATCheckLoadModel *checkLoadModel = [[ATAdManager sharedManager] checkBannerLoadStatusForPlacementID:placementID];
+    NSMutableDictionary *statusDict = [NSMutableDictionary dictionary];
+    statusDict[@"isLoading"] = @(checkLoadModel.isLoading);
+    statusDict[@"isReady"] = @(checkLoadModel.isReady);
+    statusDict[@"adInfo"] = checkLoadModel.adOfferInfo;
+    NSLog(@"ATBannerAdWrapper::statusDict = %@", statusDict);
+    return statusDict.jsonString_AnyThinkJS;
+}
+
++(void) showBannerWithPlacementID:(NSString*)placementID scene:(NSString*)scene position:(NSString*)position {
+    NSLog(@"ATBannerAdWrapper::showBannerWithPlacementID:%@ scene:%@ position:%@", placementID, scene, position);
     dispatch_async(dispatch_get_main_queue(), ^{
-        ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:placementID];
+        ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:placementID scene:scene];
         NSLog(@"bannerViewFrame = %@", NSStringFromCGRect(bannerView.frame));
         if (bannerView != nil) {
             [ATBannerAdWrapper sharedWrapper].bannerViews[placementID] = bannerView;
@@ -119,10 +130,10 @@ static NSString *const kDelegatesShowKey = @"BannerShow";
     });
 }
 
-+(void) showBannerWithPlacementID:(NSString*)placementID rect:(NSString*)rectJsonStr {
-    NSLog(@"ATBannerAdWrapper::showBannerWithPlacementID:%@ rect:%@", placementID, rectJsonStr);
++(void) showBannerWithPlacementID:(NSString*)placementID scene:(NSString*)scene rect:(NSString*)rectJsonStr {
+    NSLog(@"ATBannerAdWrapper::showBannerWithPlacementID:%@ scene:%@ rect:%@", placementID, scene, rectJsonStr);
     dispatch_async(dispatch_get_main_queue(), ^{
-        ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:placementID];
+        ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:placementID scene:scene];
         if (bannerView != nil) {
             [ATBannerAdWrapper sharedWrapper].bannerViews[placementID] = bannerView;
             bannerView.delegate = [ATBannerAdWrapper sharedWrapper];

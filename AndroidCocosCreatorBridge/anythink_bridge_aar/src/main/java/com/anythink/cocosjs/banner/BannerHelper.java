@@ -11,10 +11,12 @@ import android.widget.FrameLayout;
 import com.anythink.banner.api.ATBannerListener;
 import com.anythink.banner.api.ATBannerView;
 import com.anythink.cocosjs.utils.BaseHelper;
+import com.anythink.cocosjs.utils.CommonUtil;
 import com.anythink.cocosjs.utils.Const;
 import com.anythink.cocosjs.utils.JSPluginUtil;
 import com.anythink.cocosjs.utils.MsgTools;
 import com.anythink.core.api.ATAdInfo;
+import com.anythink.core.api.ATAdStatusInfo;
 import com.anythink.core.api.AdError;
 
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -33,7 +35,7 @@ public class BannerHelper extends BaseHelper {
     ATBannerView mBannerView;
 
     public BannerHelper() {
-        MsgTools.pirntMsg(TAG + " >>> " + this);
+        MsgTools.pirntMsg(TAG + ": " + this);
         mActivity = JSPluginUtil.getActivity();
         mPlacementId = "";
     }
@@ -45,14 +47,14 @@ public class BannerHelper extends BaseHelper {
 
     public void initBanner(String placementId) {
         mPlacementId = placementId;
-        MsgTools.pirntMsg("initBanner >>> " + placementId);
+        MsgTools.pirntMsg("initBanner: " + placementId);
 
         mBannerView = new ATBannerView(mActivity);
         mBannerView.setPlacementId(mPlacementId);
         mBannerView.setBannerAdListener(new ATBannerListener() {
             @Override
             public void onBannerLoaded() {
-                MsgTools.pirntMsg("onBannerLoaded .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerLoaded: " + mPlacementId);
 
                 if (hasCallbackName(Const.BannerCallback.LoadedCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -68,7 +70,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerFailed(final AdError adError) {
-                MsgTools.pirntMsg("onBannerFailed >> " + mPlacementId + ", " + adError.printStackTrace());
+                MsgTools.pirntMsg("onBannerFailed: " + mPlacementId + ", " + adError.getFullErrorInfo());
 
                 if (hasCallbackName(Const.BannerCallback.LoadFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -76,7 +78,7 @@ public class BannerHelper extends BaseHelper {
                         public void run() {
                             isReady = false;
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.BannerCallback.LoadFailCallbackKey)
-                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + CommonUtil.getErrorMsg(adError) + "');");
                         }
                     });
                 }
@@ -84,7 +86,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerClicked(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onBannerClicked .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerClicked: " + mPlacementId);
 
                 if (hasCallbackName(Const.BannerCallback.ClickCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -99,7 +101,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerShow(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onBannerShow .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerShow: " + mPlacementId);
 
                 if (hasCallbackName(Const.BannerCallback.ShowCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -115,7 +117,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerClose(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onBannerClose .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerClose: " + mPlacementId);
 
                 if (hasCallbackName(Const.BannerCallback.CloseCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -131,7 +133,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerAutoRefreshed(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onBannerAutoRefreshed .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerAutoRefreshed: " + mPlacementId);
 
                 if (hasCallbackName(Const.BannerCallback.RefreshCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -147,7 +149,7 @@ public class BannerHelper extends BaseHelper {
 
             @Override
             public void onBannerAutoRefreshFail(final AdError adError) {
-                MsgTools.pirntMsg("onBannerAutoRefreshFail .." + mPlacementId);
+                MsgTools.pirntMsg("onBannerAutoRefreshFail: " + mPlacementId + ", " + adError.getFullErrorInfo());
 
                 if (hasCallbackName(Const.BannerCallback.RefreshFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -155,7 +157,7 @@ public class BannerHelper extends BaseHelper {
                         public void run() {
                             isReady = false;
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.BannerCallback.RefreshFailCallbackKey)
-                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + CommonUtil.getErrorMsg(adError) + "');");
                         }
                     });
                 }
@@ -164,7 +166,7 @@ public class BannerHelper extends BaseHelper {
     }
 
     public void loadBanner(final String placementId, final String settings) {
-        MsgTools.pirntMsg("loadBanner >>> " + placementId + ", settings - " + settings);
+        MsgTools.pirntMsg("loadBanner: " + placementId + ", settings - " + settings);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -210,8 +212,8 @@ public class BannerHelper extends BaseHelper {
         });
     }
 
-    public void showBannerWithRect(String rectJson) {
-        MsgTools.pirntMsg("showBannerWithRect >>> " + mPlacementId + ", rect >>>" + rectJson);
+    public void showBannerWithRect(String rectJson, final String scenario) {
+        MsgTools.pirntMsg("showBannerWithRect: " + mPlacementId + ", rect >>>" + rectJson + ", scenario: " + scenario);
 
         if (!TextUtils.isEmpty(rectJson)) {
             JSONObject jsonObject = null;
@@ -246,6 +248,11 @@ public class BannerHelper extends BaseHelper {
                             if (mBannerView.getParent() != null) {
                                 ((ViewGroup) mBannerView.getParent()).removeView(mBannerView);
                             }
+
+                            if (!TextUtils.isEmpty(scenario)) {
+                                mBannerView.setScenario(scenario);
+                            }
+
                             mActivity.addContentView(mBannerView, layoutParams);
                         } else {
                             MsgTools.pirntMsg("showBannerWithRect error  ..you must call loadBanner first, placementId >>>  " + mPlacementId);
@@ -254,17 +261,17 @@ public class BannerHelper extends BaseHelper {
                 });
 
             } catch (Exception e) {
-                MsgTools.pirntMsg("showBannerWithRect error  .. " + e.getMessage());
+                MsgTools.pirntMsg("showBannerWithRect error: " + e.getMessage());
             }
         } else {
-            MsgTools.pirntMsg("showBannerWithRect error without rect, placementId >>> " + mPlacementId);
+            MsgTools.pirntMsg("showBannerWithRect error without rect, placementId: " + mPlacementId);
         }
 
     }
 
 
-    public void showBannerWithPosition(final String position) {
-        MsgTools.pirntMsg("showBannerWithPostion >>> " + mPlacementId + ", position >>> " + position);
+    public void showBannerWithPosition(final String position, final String scenario) {
+        MsgTools.pirntMsg("showBannerWithPostion: " + mPlacementId + ", position: " + position + ", scenario: " + scenario);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -284,9 +291,14 @@ public class BannerHelper extends BaseHelper {
                     if (mBannerView.getParent() != null) {
                         ((ViewGroup) mBannerView.getParent()).removeView(mBannerView);
                     }
+
+                    if (!TextUtils.isEmpty(scenario)) {
+                        mBannerView.setScenario(scenario);
+                    }
+
                     mActivity.addContentView(mBannerView, layoutParams);
                 } else {
-                    MsgTools.pirntMsg("showBannerWithPostion error  ..you must call loadBanner first, placementId >>> " + mPlacementId);
+                    MsgTools.pirntMsg("showBannerWithPostion error  ..you must call loadBanner first, placementId: " + mPlacementId);
                 }
 
             }
@@ -294,28 +306,28 @@ public class BannerHelper extends BaseHelper {
     }
 
     public void reshowBanner() {
-        MsgTools.pirntMsg("reshowBanner >>> " + mPlacementId);
+        MsgTools.pirntMsg("reshowBanner: " + mPlacementId);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mBannerView != null) {
                     mBannerView.setVisibility(View.VISIBLE);
                 } else {
-                    MsgTools.pirntMsg("reshowBanner error  ..you must call loadBanner first, placementId >>> " + mPlacementId);
+                    MsgTools.pirntMsg("reshowBanner error  ..you must call loadBanner first, placementId: " + mPlacementId);
                 }
             }
         });
     }
 
     public void hideBanner() {
-        MsgTools.pirntMsg("hideBanner >>> " + mPlacementId);
+        MsgTools.pirntMsg("hideBanner: " + mPlacementId);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mBannerView != null) {
                     mBannerView.setVisibility(View.GONE);
                 } else {
-                    MsgTools.pirntMsg("hideBanner error  ..you must call loadBanner first, placementId >>> " + mPlacementId);
+                    MsgTools.pirntMsg("hideBanner error  ..you must call loadBanner first, placementId: " + mPlacementId);
                 }
 
             }
@@ -323,24 +335,53 @@ public class BannerHelper extends BaseHelper {
     }
 
     public void removeBanner() {
-        MsgTools.pirntMsg("removeBanner >>> " + mPlacementId);
+        MsgTools.pirntMsg("removeBanner: " + mPlacementId);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mBannerView != null && mBannerView.getParent() != null) {
-                    MsgTools.pirntMsg("removeBanner2 placementId >>> " + mPlacementId);
+                    MsgTools.pirntMsg("removeBanner2 placementId: " + mPlacementId);
                     ViewParent viewParent = mBannerView.getParent();
                     ((ViewGroup) viewParent).removeView(mBannerView);
                 } else {
-                    MsgTools.pirntMsg("removeBanner3 >>> no banner need to be removed, placementId >>> " + mPlacementId);
+                    MsgTools.pirntMsg("removeBanner3 >>> no banner need to be removed, placementId: " + mPlacementId);
                 }
             }
         });
     }
 
     public boolean isAdReady() {
-        MsgTools.pirntMsg("banner isAdReady >>> " + mPlacementId + "：" + isReady);
+        if (mBannerView != null) {
+            ATAdStatusInfo atAdStatusInfo = mBannerView.checkAdStatus();
+            if (atAdStatusInfo != null) {
+                boolean isReady = atAdStatusInfo.isReady();
+                MsgTools.pirntMsg("banner isAdReady: " + mPlacementId + "：" + isReady);
+            }
+        }
         return isReady;
+    }
+
+    public String checkAdStatus() {
+        MsgTools.pirntMsg("banner checkAdStatus: " + mPlacementId);
+
+        if (mBannerView != null) {
+            ATAdStatusInfo atAdStatusInfo = mBannerView.checkAdStatus();
+            boolean loading = atAdStatusInfo.isLoading();
+            boolean ready = atAdStatusInfo.isReady();
+            ATAdInfo atTopAdInfo = atAdStatusInfo.getATTopAdInfo();
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("isLoading", loading);
+                jsonObject.put("isReady", ready);
+                jsonObject.put("adInfo", atTopAdInfo);
+
+                return jsonObject.toString();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 
 }

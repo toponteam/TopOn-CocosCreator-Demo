@@ -1,16 +1,20 @@
 package com.anythink.cocosjs.nativead;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.anythink.cocosjs.utils.BaseHelper;
+import com.anythink.cocosjs.utils.CommonUtil;
 import com.anythink.cocosjs.utils.Const;
 import com.anythink.cocosjs.utils.JSPluginUtil;
 import com.anythink.cocosjs.utils.MsgTools;
 import com.anythink.core.api.ATAdInfo;
+import com.anythink.core.api.ATAdStatusInfo;
 import com.anythink.core.api.AdError;
 import com.anythink.nativead.api.ATNative;
 import com.anythink.nativead.api.ATNativeAdView;
@@ -42,8 +46,10 @@ public class NativeHelper extends BaseHelper {
 
     static List<ViewInfo> currViewInfo = new ArrayList<>();
 
+    ImageView mDislikeView;
+
     public NativeHelper() {
-        MsgTools.pirntMsg(TAG + " >>> " + this);
+        MsgTools.pirntMsg(TAG + ": " + this);
         mActivity = JSPluginUtil.getActivity();
         mPlacementId = "";
     }
@@ -55,12 +61,12 @@ public class NativeHelper extends BaseHelper {
 
     private void initNative(String placementId) {
         mPlacementId = placementId;
-        MsgTools.pirntMsg("initNative >>> " + placementId);
+        MsgTools.pirntMsg("initNative: " + placementId);
 
         mATNative = new ATNative(mActivity, placementId, new ATNativeNetworkListener() {
             @Override
             public void onNativeAdLoaded() {
-                MsgTools.pirntMsg("onNativeAdLoaded .." + mPlacementId);
+                MsgTools.pirntMsg("onNativeAdLoaded: " + mPlacementId);
 
                 if (hasCallbackName(Const.NativeCallback.LoadedCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -75,14 +81,14 @@ public class NativeHelper extends BaseHelper {
 
             @Override
             public void onNativeAdLoadFail(final AdError adError) {
-                MsgTools.pirntMsg("onNativeAdLoadFail >> " + mPlacementId + ", " + adError.printStackTrace());
+                MsgTools.pirntMsg("onNativeAdLoadFail: " + mPlacementId + ", " + adError.getFullErrorInfo());
 
                 if (hasCallbackName(Const.NativeCallback.LoadFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.NativeCallback.LoadFailCallbackKey)
-                                    + "('" + mPlacementId + "','" + adError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + CommonUtil.getErrorMsg(adError) + "');");
                         }
                     });
                 }
@@ -93,7 +99,7 @@ public class NativeHelper extends BaseHelper {
     }
 
     public void loadNative(final String placementId, final String settings) {
-        MsgTools.pirntMsg("loadNative >>> " + placementId + ", settings: " + settings);
+        MsgTools.pirntMsg("loadNative: " + placementId + ", settings: " + settings);
 
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
@@ -190,21 +196,38 @@ public class NativeHelper extends BaseHelper {
                 pViewInfo.ctaView = pViewInfo.parseINFO(tempjson, "cta", 0, 0);
             }
 
+            if (_jsonObject.has(Const.dislike)) {
+                String tempjson = _jsonObject.getString(Const.dislike);
+                MsgTools.pirntMsg("dislike----> " + tempjson);
+                pViewInfo.dislikeView = pViewInfo.parseINFO(tempjson, "dislike", 0, 0);
+            }
 
-        } catch (JSONException pE) {
-            pE.printStackTrace();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return pViewInfo;
     }
 
 
-    public void show(final String showConfig) {
-        MsgTools.pirntMsg("native show >>> " + mPlacementId + ", config >>> " + showConfig);
+    public void show(final String showConfig, final String scenario) {
+        MsgTools.pirntMsg("native show: " + mPlacementId + ", config: " + showConfig + ", scenario: " + scenario);
+
+        if (mATNative == null) {
+            MsgTools.pirntMsg("native show error: mATNative = null");
+            return;
+        }
 
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                NativeAd nativeAd = mATNative.getNativeAd();
+                NativeAd nativeAd;
+                if (!TextUtils.isEmpty(scenario)) {
+                    nativeAd = mATNative.getNativeAd(scenario);
+                } else {
+                    nativeAd = mATNative.getNativeAd();
+                }
+
                 if (nativeAd != null) {
                     MsgTools.pirntMsg("nativeAd:" + nativeAd.toString());
                     pViewInfo = parseViewInfo(showConfig);
@@ -213,7 +236,7 @@ public class NativeHelper extends BaseHelper {
                     nativeAd.setNativeEventListener(new ATNativeEventListener() {
                         @Override
                         public void onAdImpressed(ATNativeAdView view, final ATAdInfo adInfo) {
-                            MsgTools.pirntMsg("onAdImpressed .." + mPlacementId);
+                            MsgTools.pirntMsg("onAdImpressed: " + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.ShowCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
@@ -228,7 +251,7 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdClicked(ATNativeAdView view, final ATAdInfo adInfo) {
-                            MsgTools.pirntMsg("onAdClicked .." + mPlacementId);
+                            MsgTools.pirntMsg("onAdClicked: " + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.ClickCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
@@ -243,7 +266,7 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdVideoStart(ATNativeAdView view) {
-                            MsgTools.pirntMsg("onAdVideoStart .." + mPlacementId);
+                            MsgTools.pirntMsg("onAdVideoStart: " + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.VideoStartKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
@@ -258,7 +281,7 @@ public class NativeHelper extends BaseHelper {
 
                         @Override
                         public void onAdVideoEnd(ATNativeAdView view) {
-                            MsgTools.pirntMsg("onAdVideoEnd .." + mPlacementId);
+                            MsgTools.pirntMsg("onAdVideoEnd: " + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.VideoEndKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
@@ -288,7 +311,7 @@ public class NativeHelper extends BaseHelper {
                     nativeAd.setDislikeCallbackListener(new ATNativeDislikeListener() {
                         @Override
                         public void onAdCloseButtonClick(ATNativeAdView atNativeAdView, final ATAdInfo atAdInfo) {
-                            MsgTools.pirntMsg("onAdCloseButtonClick .." + mPlacementId);
+                            MsgTools.pirntMsg("onAdCloseButtonClick: " + mPlacementId);
 
                             if (hasCallbackName(Const.NativeCallback.CloseCallbackKey)) {
                                 JSPluginUtil.runOnGLThread(new Runnable() {
@@ -302,19 +325,35 @@ public class NativeHelper extends BaseHelper {
                         }
                     });
 
+                    ATUnityRender atUnityRender = new ATUnityRender(mActivity, pViewInfo);
                     try {
-                        nativeAd.renderAdView(mATNativeAdView, new ATUnityRender(mActivity, pViewInfo));
+                        if (pViewInfo.dislikeView != null) {
+                            initDislikeView(pViewInfo.dislikeView);
+
+                            atUnityRender.setDislikeView(mDislikeView);
+                        }
+
+                        nativeAd.renderAdView(mATNativeAdView, atUnityRender);
                     } catch (Exception e) {
                         e.printStackTrace();
+                    }
+
+                    //add dislike button
+                    if (pViewInfo.dislikeView != null && mDislikeView != null) {
+                        if (mDislikeView.getParent() != null) {
+                            ((ViewGroup) mDislikeView.getParent()).removeView(mDislikeView);
+                        }
+
+                        mATNativeAdView.addView(mDislikeView);
                     }
 
                     if (pViewInfo.adLogoView != null) {
                         FrameLayout.LayoutParams adLogoLayoutParams = new FrameLayout.LayoutParams(pViewInfo.adLogoView.mWidth, pViewInfo.adLogoView.mHeight);
                         adLogoLayoutParams.leftMargin = pViewInfo.adLogoView.mX;
                         adLogoLayoutParams.topMargin = pViewInfo.adLogoView.mY;
-                        nativeAd.prepare(mATNativeAdView, adLogoLayoutParams);
+                        nativeAd.prepare(mATNativeAdView, atUnityRender.getClickViews(), adLogoLayoutParams);
                     } else {
-                        nativeAd.prepare(mATNativeAdView);
+                        nativeAd.prepare(mATNativeAdView, atUnityRender.getClickViews(), null);
                     }
 
                     ViewInfo.addNativeAdView2Activity(mActivity, pViewInfo, mATNativeAdView);
@@ -334,12 +373,38 @@ public class NativeHelper extends BaseHelper {
         });
     }
 
+    private void initDislikeView(ViewInfo.INFO dislikeInfo) {
+        if (mDislikeView == null) {
+            mDislikeView = new ImageView(mActivity);
+            mDislikeView.setImageResource(CommonUtil.getResId(mActivity, "btn_close", "drawable"));
+        }
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(dislikeInfo.mWidth, dislikeInfo.mHeight);
+        layoutParams.leftMargin = dislikeInfo.mX;
+        layoutParams.topMargin = dislikeInfo.mY;
+
+        if (!TextUtils.isEmpty(dislikeInfo.bgcolor)) {
+            mDislikeView.setBackgroundColor(Color.parseColor(dislikeInfo.bgcolor));
+        }
+
+        mDislikeView.setLayoutParams(layoutParams);
+    }
+
 
     public boolean isAdReady() {
-        mNativeAd = mATNative.getNativeAd();
-        boolean isReady = mNativeAd != null;
-        MsgTools.pirntMsg("native isAdReady >>> " + mPlacementId + ", " + isReady);
-        return isReady;
+        if (mATNative == null) {
+            MsgTools.pirntMsg("isAdReady error  ..you must call initNative first " + mPlacementId);
+            return false;
+        }
+
+        ATAdStatusInfo atAdStatusInfo = mATNative.checkAdStatus();
+        if (atAdStatusInfo != null) {
+            boolean isReady = atAdStatusInfo.isReady();
+            MsgTools.pirntMsg("native isAdReady: " + mPlacementId + ", " + isReady);
+            return isReady;
+        }
+
+        return false;
     }
 
     public void clean() {
@@ -349,7 +414,7 @@ public class NativeHelper extends BaseHelper {
     }
 
     public void remove() {
-        MsgTools.pirntMsg("native remove..." + mPlacementId);
+        MsgTools.pirntMsg("native remove: " + mPlacementId);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -384,5 +449,28 @@ public class NativeHelper extends BaseHelper {
         if (mNativeAd != null) {
             mNativeAd.onResume();
         }
+    }
+
+    public String checkAdStatus() {
+        MsgTools.pirntMsg("native checkAdStatus: " + mPlacementId);
+
+        if (mATNative != null) {
+            ATAdStatusInfo atAdStatusInfo = mATNative.checkAdStatus();
+            boolean loading = atAdStatusInfo.isLoading();
+            boolean ready = atAdStatusInfo.isReady();
+            ATAdInfo atTopAdInfo = atAdStatusInfo.getATTopAdInfo();
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("isLoading", loading);
+                jsonObject.put("isReady", ready);
+                jsonObject.put("adInfo", atTopAdInfo);
+
+                return jsonObject.toString();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 }

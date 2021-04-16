@@ -98,9 +98,26 @@ var ATNativeSDK = ATNativeSDK || {
         return false;
     },
 
+    checkAdStatus : function(placementId) {
+        if (undefined != platformBridge && platformBridge != null) {
+            return platformBridge.checkAdStatus(placementId);
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+        return "";
+    },
+
     showAd : function(placementId, adViewProperty) {
         if (undefined != platformBridge && platformBridge != null) {
            platformBridge.showAd(placementId, JSON.stringify(adViewProperty.getAdViewProperty()));
+        } else {
+            cc.log("You must run on Android or iOS.");
+        }
+    },
+
+    showAdInScenario : function(placementId, adViewProperty, scenario="") {
+        if (undefined != platformBridge && platformBridge != null) {
+           platformBridge.showAdInScenario(placementId, JSON.stringify(adViewProperty.getAdViewProperty()), scenario);
         } else {
             cc.log("You must run on Android or iOS.");
         }
@@ -131,8 +148,9 @@ var ATNativeSDK = ATNativeSDK || {
         adLogo:null,
         cta:null,
         rating:null,
+        dislike:null,
 
-        createItemViewProperty: function(x, y ,width ,height ,backgroundColor ,textColor ,textSize) {
+        createItemViewProperty: function(x, y ,width ,height ,backgroundColor ,textColor ,textSize, isCustomClick = false) {
             var itemProperty = {};
             itemProperty["x"] = x;
             itemProperty["y"] = y;
@@ -141,6 +159,7 @@ var ATNativeSDK = ATNativeSDK || {
             itemProperty["backgroundColor"] = backgroundColor;
             itemProperty["textColor"] = textColor;
             itemProperty["textSize"] = textSize;
+            itemProperty["isCustomClick"] = isCustomClick;
 
             return itemProperty;
         },
@@ -178,6 +197,10 @@ var ATNativeSDK = ATNativeSDK || {
 
             if(this.rating != null){
                 nativeViewProperty["rating"] = this.rating;
+            }
+
+            if(this.dislike != null){
+                nativeViewProperty["dislike"] = this.dislike;
             }
            
             return nativeViewProperty;

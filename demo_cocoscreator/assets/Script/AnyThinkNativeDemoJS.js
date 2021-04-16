@@ -61,8 +61,10 @@ cc.Class({
         nativeAdViewProperty.desc = nativeAdViewProperty.createItemViewProperty(appIconSize + padding ,parentHeight - appIconSize/2 , parentWidth - 3* appIconSize -2 * padding ,appIconSize/2 ,"#ffffff" ,"#000000" , appIconSize/4);
         // nativeAdViewProperty.adLogo = nativeAdViewProperty.createItemViewProperty(0,0,0,0,"#ffffff","#ffffff",14);
         // nativeAdViewProperty.rating = nativeAdViewProperty.createItemViewProperty(0,0,0,0,"#ffffff","#ffffff",14);
+        nativeAdViewProperty.dislike = nativeAdViewProperty.createItemViewProperty(parentWidth - appIconSize/2,0,appIconSize/2,appIconSize/2,"#00ffffff","#ffffff",14);
 
         ATNativeJSSDK.showAd(this.placementID(), nativeAdViewProperty);
+        // ATNativeJSSDK.showAdInScenario(this.placementID(), nativeAdViewProperty, "f600e5f8b80c14");
 
     },
 
@@ -72,6 +74,10 @@ cc.Class({
 
     checkReady : function () {
         var hasReady = ATNativeJSSDK.hasAdReady(this.placementID());
+        ATJSSDK.printLog("AnyThinkNativeDemo::checkReady() " + (hasReady ? "Ready" : "NO"));
+
+        var adStatusInfo = ATNativeJSSDK.checkAdStatus(this.placementID());
+        ATJSSDK.printLog("AnyThinkNativeDemo::checkAdStatus()   " + adStatusInfo);
     },
 
     onNativeAdLoaded : function (placementId) {
@@ -99,7 +105,9 @@ cc.Class({
     },
 
     onNativeAdCloseButtonTapped : function(placementId, callbackInfo) {
-        ATJSSDK.printLog("AnyThinkNativeDemo::onNativeAdCloseButtonTapped(" + placementId + ", " + callbackInfo + ")"); 
+        ATJSSDK.printLog("AnyThinkNativeDemo::onNativeAdCloseButtonTapped(" + placementId + ", " + callbackInfo + ")");
+
+        this.removeAd();
     }
    
 });

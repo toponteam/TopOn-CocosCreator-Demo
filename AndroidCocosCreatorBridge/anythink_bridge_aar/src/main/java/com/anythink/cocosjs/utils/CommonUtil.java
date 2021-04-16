@@ -1,6 +1,9 @@
 package com.anythink.cocosjs.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
+
+import com.anythink.core.api.AdError;
 
 public class CommonUtil {
 
@@ -14,4 +17,24 @@ public class CommonUtil {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
+    public static String getErrorMsg(AdError adError) {
+        try {
+            return adError.getFullErrorInfo().replace("'s", "")
+                    .replace("'", "");
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return "code:[ " + adError.getCode() + " ]desc:[ ]platformCode:[ " + adError.getPlatformCode() + " ]platformMSG:[ " + adError.getPlatformMSG() + " ]";
+    }
+
+    public static int getResId(Context context, String resName, String resType) {
+        if (context != null) {
+            resName = "anythink_" + resName;
+            return context.getResources().getIdentifier(resName, resType,
+                    context.getPackageName());
+        }
+        return -1;
+    }
+
 }
