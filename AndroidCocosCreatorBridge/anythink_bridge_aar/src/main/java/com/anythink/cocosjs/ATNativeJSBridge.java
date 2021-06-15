@@ -25,10 +25,10 @@ public class ATNativeJSBridge {
         }
     }
 
-    public static void show(String placementId, String adViewProperty) {
+    public static void show(String placementId, String adViewProperty, String scenario) {
         NativeHelper helper = getHelper(placementId);
         if (helper != null) {
-            helper.show(adViewProperty);
+            helper.show(adViewProperty, scenario);
         }
     }
 
@@ -68,6 +68,13 @@ public class ATNativeJSBridge {
         return false;
     }
 
+    public static String checkAdStatus(String placementId) {
+        NativeHelper helper = getHelper(placementId);
+        if (helper != null) {
+            return helper.checkAdStatus();
+        }
+        return "";
+    }
 
     private static NativeHelper getHelper(String placementId) {
         NativeHelper helper;

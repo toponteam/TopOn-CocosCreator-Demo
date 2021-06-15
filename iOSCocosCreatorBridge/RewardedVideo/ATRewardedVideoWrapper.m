@@ -38,8 +38,9 @@ static NSString *const kShowExtraSceneKey = @"scenario";
     if (extraJsonStr != nil) {
         NSDictionary *rawExtra = [NSJSONSerialization JSONObjectWithString:extraJsonStr options:NSJSONReadingAllowFragments error:nil];
         if ([rawExtra isKindOfClass:[NSDictionary class]]) { extra = [[NSMutableDictionary alloc] initWithDictionary:rawExtra];}
-        if (![extra[kATAdLoadingExtraMediaExtraKey] isKindOfClass:[NSDictionary class]]) { [extra removeObjectForKey:kATAdLoadingExtraMediaExtraKey];}
+        if (![extra[kATAdLoadingExtraMediaExtraKey] isKindOfClass:[NSString class]]) { [extra removeObjectForKey:kATAdLoadingExtraMediaExtraKey];}
     }
+    NSLog(@"ATRewardedVideoWrapper::extra:%@",extra);
     [[ATAdManager sharedManager] loadADWithPlacementID:placementID extra:[extra isKindOfClass:[NSMutableDictionary class]] ? extra : nil delegate:[ATRewardedVideoWrapper sharedWrapper]];
 }
 

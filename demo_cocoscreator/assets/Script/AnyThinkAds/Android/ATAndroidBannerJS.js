@@ -16,14 +16,29 @@ var ATAndroidBannerJS = ATAndroidBannerJS || {
         return jsb.reflection.callStaticMethod(classJavaName, "isAdReady", "(Ljava/lang/String;)Z", placementId);;
     },
 
+    checkAdStatus : function(placementId) {
+        cc.log("Android-checkAdStatus:" + placementId);
+        return jsb.reflection.callStaticMethod(classJavaName, "checkAdStatus", "(Ljava/lang/String;)Ljava/lang/String;", placementId);
+    },
+
     showAdInPosition : function(placementId, position) {
         cc.log("Android-showAdInPosistion");
-		jsb.reflection.callStaticMethod(classJavaName, "showWithPosition", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, position);
+		jsb.reflection.callStaticMethod(classJavaName, "showWithPosition", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", placementId, position, "");
+    },
+
+    showAdInPositionAndScenario : function(placementId, position, scenario) {
+        cc.log("Android-showAdInPositionAndScenario");
+        jsb.reflection.callStaticMethod(classJavaName, "showWithPosition", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", placementId, position, scenario);
     },
 
     showAdInRectangle : function(placementId, showAdRect) {
         cc.log("Android-showAdInRectangle");
-		jsb.reflection.callStaticMethod(classJavaName, "showWithRect", "(Ljava/lang/String;Ljava/lang/String;)V", placementId, showAdRect);
+		jsb.reflection.callStaticMethod(classJavaName, "showWithRect", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", placementId, showAdRect, "");
+    },
+
+    showAdInRectangleAndScenario : function(placementId, showAdRect, scenario) {
+        cc.log("Android-showAdInRectangleAndScenario");
+        jsb.reflection.callStaticMethod(classJavaName, "showWithRect", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", placementId, showAdRect, scenario);
     },
     
     removeAd : function(placementId) {

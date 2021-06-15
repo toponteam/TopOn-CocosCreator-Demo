@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.anythink.cocosjs.utils.BaseHelper;
+import com.anythink.cocosjs.utils.CommonUtil;
 import com.anythink.cocosjs.utils.Const;
 import com.anythink.cocosjs.utils.JSPluginUtil;
 import com.anythink.cocosjs.utils.MsgTools;
@@ -30,7 +31,7 @@ public class RewardVideoHelper extends BaseHelper {
     boolean isReady = false;
 
     public RewardVideoHelper() {
-        MsgTools.pirntMsg(TAG + " >>> " + this);
+        MsgTools.pirntMsg(TAG + ": " + this);
         mActivity = JSPluginUtil.getActivity();
     }
 
@@ -42,14 +43,14 @@ public class RewardVideoHelper extends BaseHelper {
 
     private void initVideo(final String placementId) {
         mPlacementId = placementId;
-        MsgTools.pirntMsg("initVideo placementId >>> " + mPlacementId);
+        MsgTools.pirntMsg("initVideo placementId: " + mPlacementId);
 
         mRewardVideoAd = new ATRewardVideoAd(mActivity, placementId);
 
         mRewardVideoAd.setAdListener(new ATRewardVideoListener() {
             @Override
             public void onRewardedVideoAdLoaded() {
-                MsgTools.pirntMsg("onRewardedVideoAdLoaded .." + mPlacementId);
+                MsgTools.pirntMsg("onRewardedVideoAdLoaded: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.LoadedCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -65,7 +66,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onRewardedVideoAdFailed(final AdError pAdError) {
-                MsgTools.pirntMsg("onRewardedVideoAdFailed >> " + mPlacementId + ", " + pAdError.printStackTrace());
+                MsgTools.pirntMsg("onRewardedVideoAdFailed: " + mPlacementId + ", " + pAdError.getFullErrorInfo());
 
                 if (hasCallbackName(Const.RewardVideoCallback.LoadFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -73,7 +74,7 @@ public class RewardVideoHelper extends BaseHelper {
                         public void run() {
                             isReady = false;
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.RewardVideoCallback.LoadFailCallbackKey)
-                                    + "('" + mPlacementId + "','" + pAdError.printStackTrace() + "');");
+                                    + "('" + mPlacementId + "','" + CommonUtil.getErrorMsg(pAdError) + "');");
                         }
                     });
                 }
@@ -81,7 +82,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onRewardedVideoAdPlayStart(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onRewardedVideoAdPlayStart .." + mPlacementId);
+                MsgTools.pirntMsg("onRewardedVideoAdPlayStart: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.PlayStartCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -96,7 +97,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onRewardedVideoAdPlayEnd(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onRewardedVideoAdPlayEnd .." + mPlacementId);
+                MsgTools.pirntMsg("onRewardedVideoAdPlayEnd: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.PlayEndCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -110,15 +111,15 @@ public class RewardVideoHelper extends BaseHelper {
             }
 
             @Override
-            public void onRewardedVideoAdPlayFailed(final AdError pAdError, final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onRewardedVideoAdPlayFailed .." + mPlacementId + ", " + pAdError.printStackTrace());
+            public void onRewardedVideoAdPlayFailed(final AdError adError, final ATAdInfo adInfo) {
+                MsgTools.pirntMsg("onRewardedVideoAdPlayFailed: " + mPlacementId + ", " + adError.getFullErrorInfo());
 
                 if (hasCallbackName(Const.RewardVideoCallback.PlayFailCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString(getCallbackName(Const.RewardVideoCallback.PlayFailCallbackKey)
-                                    + "('" + mPlacementId + "','" + pAdError.printStackTrace() + "','" + adInfo.toString() + "');");
+                                    + "('" + mPlacementId + "','" + CommonUtil.getErrorMsg(adError) + "','" + adInfo.toString() + "');");
                         }
                     });
                 }
@@ -127,7 +128,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onRewardedVideoAdClosed(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onRewardedVideoAdClosed .." + mPlacementId);
+                MsgTools.pirntMsg("onRewardedVideoAdClosed: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.CloseCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -142,7 +143,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onRewardedVideoAdPlayClicked(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onRewardedVideoAdPlayClicked .." + mPlacementId);
+                MsgTools.pirntMsg("onRewardedVideoAdPlayClicked: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.ClickCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -157,7 +158,7 @@ public class RewardVideoHelper extends BaseHelper {
 
             @Override
             public void onReward(final ATAdInfo adInfo) {
-                MsgTools.pirntMsg("onReward .." + mPlacementId);
+                MsgTools.pirntMsg("onReward: " + mPlacementId);
 
                 if (hasCallbackName(Const.RewardVideoCallback.RewardCallbackKey)) {
                     JSPluginUtil.runOnGLThread(new Runnable() {
@@ -174,7 +175,7 @@ public class RewardVideoHelper extends BaseHelper {
 
 
     public void loadRewardedVideo(final String placementId, final String settings) {
-        MsgTools.pirntMsg("loadRewardedVideo >>> " + placementId + ", settings >>> " + settings);
+        MsgTools.pirntMsg("loadRewardedVideo: " + placementId + ", settings: " + settings);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +217,7 @@ public class RewardVideoHelper extends BaseHelper {
     }
 
     public void showVideo(final String scenario) {
-        MsgTools.pirntMsg("showVideo >>> " + mPlacementId + ", scenario >>> " + scenario);
+        MsgTools.pirntMsg("showVideo: " + mPlacementId + ", scenario: " + scenario);
         JSPluginUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -224,7 +225,7 @@ public class RewardVideoHelper extends BaseHelper {
                     isReady = false;
                     mRewardVideoAd.show(mActivity, scenario);
                 } else {
-                    MsgTools.pirntMsg("showVideo error  ..you must call loadRewardVideo first " + mPlacementId);
+                    MsgTools.pirntMsg("showVideo error, you must call loadRewardVideo first " + mPlacementId);
                     if (hasCallbackName(Const.RewardVideoCallback.LoadFailCallbackKey)) {
                         JSPluginUtil.runOnGLThread(new Runnable() {
                             @Override
@@ -241,26 +242,26 @@ public class RewardVideoHelper extends BaseHelper {
     }
 
     public boolean isAdReady() {
-        MsgTools.pirntMsg("video isAdReady >>> " + mPlacementId);
+        MsgTools.pirntMsg("video isAdReady: " + mPlacementId);
 
         try {
             if (mRewardVideoAd != null) {
                 boolean isAdReady = mRewardVideoAd.isAdReady();
-                MsgTools.pirntMsg("video isAdReady >>> " + mPlacementId + ", " + isAdReady);
+                MsgTools.pirntMsg("video isAdReady: " + mPlacementId + ", " + isAdReady);
                 return isAdReady;
             } else {
-                MsgTools.pirntMsg("video isAdReady error  ..you must call loadRewardedVideo first " + mPlacementId);
+                MsgTools.pirntMsg("video isAdReady error, you must call loadRewardedVideo first " + mPlacementId);
             }
-            MsgTools.pirntMsg("video isAdReady >end>> " + mPlacementId);
+            MsgTools.pirntMsg("video isAdReady, end: " + mPlacementId);
         } catch (Throwable e) {
-            MsgTools.pirntMsg("video isAdReady >Throwable>> " + e.getMessage());
+            MsgTools.pirntMsg("video isAdReady, Throwable: " + e.getMessage());
             return isReady;
         }
         return isReady;
     }
 
     public String checkAdStatus() {
-        MsgTools.pirntMsg("video checkAdStatus >>> " + mPlacementId);
+        MsgTools.pirntMsg("video checkAdStatus: " + mPlacementId);
 
         if (mRewardVideoAd != null) {
             ATAdStatusInfo atAdStatusInfo = mRewardVideoAd.checkAdStatus();

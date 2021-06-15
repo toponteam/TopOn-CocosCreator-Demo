@@ -17,6 +17,9 @@ import com.anythink.nativead.api.ATNativeAdRenderer;
 import com.anythink.nativead.api.ATNativeImageView;
 import com.anythink.nativead.unitgroup.api.CustomNativeAd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Copyright (C) 2018 {XX} Science and Technology Co., Ltd.
@@ -28,6 +31,9 @@ public class ATUnityRender implements ATNativeAdRenderer<CustomNativeAd> {
     Activity mActivity;
     ViewInfo mViewInfo;
     FrameLayout mFrameLayout;
+    View mDislikeView;
+
+    List<View> mClickViews = new ArrayList<>();
 
     public ATUnityRender(Activity pActivity, ViewInfo pViewInfo) {
         mActivity = pActivity;
@@ -54,6 +60,11 @@ public class ATUnityRender implements ATNativeAdRenderer<CustomNativeAd> {
 
         final View mediaView = ad.getAdMediaView(mFrameLayout, view.getWidth());
         if (mediaView != null && ad.isNativeExpress()) { // 个性化模板View
+
+            if (mDislikeView != null) {
+                mDislikeView.setVisibility(View.GONE);
+            }
+
             if (mViewInfo.imgMainView != null && mViewInfo.rootView != null) {
                 mViewInfo.imgMainView.mX = 0;
                 mViewInfo.imgMainView.mY = 0;
@@ -133,13 +144,14 @@ public class ATUnityRender implements ATNativeAdRenderer<CustomNativeAd> {
             ViewInfo.add2ParentView(mFrameLayout, descView, mViewInfo.descView, -1);
         }
 
+        ATNativeImageView iconView = null;
         if (mViewInfo.IconView != null) {
 
             FrameLayout iconArea = new FrameLayout(mActivity);
 
 
             if (ad.getAdIconView() == null) {
-                final ATNativeImageView iconView = new ATNativeImageView(mActivity);
+                iconView = new ATNativeImageView(mActivity);
                 iconArea.addView(iconView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
                 iconView.setImage(ad.getIconImageUrl());
             } else {
@@ -150,10 +162,10 @@ public class ATUnityRender implements ATNativeAdRenderer<CustomNativeAd> {
             ViewInfo.add2ParentView(mFrameLayout, iconArea, mViewInfo.IconView, -1);
         }
 
-
+        ATNativeImageView logoView = null;
         if (mViewInfo.adLogoView != null) {
             // 加载图片
-            final ATNativeImageView logoView = new ATNativeImageView(mActivity);
+            logoView = new ATNativeImageView(mActivity);
             ViewInfo.add2ParentView(mFrameLayout, logoView, mViewInfo.adLogoView, -1);
             logoView.setImage(ad.getAdChoiceIconUrl());
         }
@@ -208,5 +220,76 @@ public class ATUnityRender implements ATNativeAdRenderer<CustomNativeAd> {
             }
         }
 
+        //click
+        List<View> customClickViews = new ArrayList<>();
+
+        if (mViewInfo.rootView != null) {
+            dealWithClick(view, mViewInfo.rootView.isCustomClick, mClickViews, customClickViews, "root");
+        }
+        if (mViewInfo.titleView != null) {
+            dealWithClick(titleView, mViewInfo.titleView.isCustomClick, mClickViews, customClickViews, "title");
+        }
+        if (mViewInfo.descView != null) {
+            dealWithClick(descView, mViewInfo.descView.isCustomClick, mClickViews, customClickViews, "desc");
+        }
+        if (mViewInfo.IconView != null) {
+            dealWithClick(iconView, mViewInfo.IconView.isCustomClick, mClickViews, customClickViews, "icon");
+        }
+        if (mViewInfo.adLogoView != null) {
+            dealWithClick(logoView, mViewInfo.adLogoView.isCustomClick, mClickViews, customClickViews, "adLogo");
+        }
+        if (mViewInfo.ctaView != null) {
+            dealWithClick(ctaView, mViewInfo.ctaView.isCustomClick, mClickViews, customClickViews, "cta");
+        }
+
+        //dislike
+
+        if (mDislikeView != null) {
+            MsgTools.pirntMsg("bind dislike ----> " + mNetworkType);
+
+            mDislikeView.setVisibility(View.VISIBLE);
+
+            CustomNativeAd.ExtraInfo.Builder builder = new CustomNativeAd.ExtraInfo.Builder();
+            builder.setCloseView(mDislikeView);
+
+            if (customClickViews.size() > 0) {
+                builder.setCustomViewList(customClickViews);
+            }
+
+            ad.setExtraInfo(builder.build());
+        } else {
+            if (customClickViews.size() > 0) {
+                CustomNativeAd.ExtraInfo.Builder builder = new CustomNativeAd.ExtraInfo.Builder()
+                        .setCustomViewList(customClickViews);
+
+                ad.setExtraInfo(builder.build());
+            }
+        }
+
     }
+
+
+    public void setDislikeView(View dislikeView) {
+        this.mDislikeView = dislikeView;
+    }
+
+    private void dealWithClick(View view, boolean isCustomClick, List<View> clickViews, List<View> customClickViews, String name) {
+        if (mNetworkType == 8 || mNetworkType == 22) {
+            if (isCustomClick) {
+                if (view != null) {
+                    MsgTools.pirntMsg("add customClick ----> " + name);
+                    customClickViews.add(view);
+                }
+                return;
+            }
+        }
+        MsgTools.pirntMsg("add click ----> " + name);
+        clickViews.add(view);
+    }
+
+
+    public List<View> getClickViews() {
+        return mClickViews;
+    }
+
 }

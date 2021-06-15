@@ -18,6 +18,7 @@ public class Const {
     public static final String BACKGROUND_COLOR = "backgroundColor";
     public static final String TEXT_COLOR = "textColor";
     public static final String TEXT_SIZE = "textSize";
+    public static final String CUSTOM_CLICK = "isCustomClick";
 
     public static final String parent = "parent";
     public static final String icon = "icon";
@@ -26,6 +27,7 @@ public class Const {
     public static final String desc = "desc";
     public static final String adLogo = "adLogo";
     public static final String cta = "cta";
+    public static final String dislike = "dislike";
 
     public static class Interstital {
         public static final String UseRewardedVideoAsInterstitial = "UseRewardedVideoAsInterstitial";

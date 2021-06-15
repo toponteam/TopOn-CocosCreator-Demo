@@ -16,9 +16,19 @@ var ATiOSNativeJS = ATiOSNativeJS || {
         return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "nativeReadyForPlacementID:", placementId);
     },
 
+    checkAdStatus : function(placementId) {
+        ATiOSJS.printJsLog("ATiOSNativeJS::checkAdStatus(" + placementId + ")");
+        return jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "nativeCheckAdStatusForPlacementID:", placementId);
+    },
+
     showAd : function(placementId, adViewProperty) { 
         ATiOSJS.printJsLog("ATiOSNativeJS::showAd(" + placementId + ", " + adViewProperty + ")");
-        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showNativeWithPlacementID:metrics:", placementId, adViewProperty);
+        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showNativeWithPlacementID:scene:metrics:", placementId, null, adViewProperty);
+    },
+
+    showAdInScenario : function(placementId, adViewProperty, scenario) { 
+        ATiOSJS.printJsLog("ATiOSNativeJS::showAdInScenario(" + placementId + ", " + adViewProperty + ", " + scenario + ")");
+        jsb.reflection.callStaticMethod(OC_WRAPPER_CLASS, "showNativeWithPlacementID:scene:metrics:", placementId, scenario, adViewProperty);
     },
 
     removeAd : function(placementId) {

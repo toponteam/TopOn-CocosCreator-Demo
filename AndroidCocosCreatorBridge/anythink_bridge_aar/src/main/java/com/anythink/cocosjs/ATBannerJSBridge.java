@@ -26,17 +26,17 @@ public class ATBannerJSBridge {
 
     }
 
-    public static void showWithPosition(String placementId, String position) {
+    public static void showWithPosition(String placementId, String position, String scenario) {
         BannerHelper helper = getHelper(placementId);
         if (helper != null) {
-            helper.showBannerWithPosition(position);
+            helper.showBannerWithPosition(position, scenario);
         }
     }
 
-    public static void showWithRect(String placementId, String rectJson) {
+    public static void showWithRect(String placementId, String rectJson, String scenario) {
         BannerHelper helper = getHelper(placementId);
         if (helper != null) {
-            helper.showBannerWithRect(rectJson);
+            helper.showBannerWithRect(rectJson, scenario);
         }
     }
 
@@ -69,6 +69,13 @@ public class ATBannerJSBridge {
         return false;
     }
 
+    public static String checkAdStatus(String placementId) {
+        BannerHelper helper = getHelper(placementId);
+        if (helper != null) {
+            return helper.checkAdStatus();
+        }
+        return "";
+    }
 
     private static BannerHelper getHelper(String placementId) {
         BannerHelper helper;
