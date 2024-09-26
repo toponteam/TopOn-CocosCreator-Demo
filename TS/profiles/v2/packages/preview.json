@@ -1,0 +1,9 @@
+{
+  "general": {
+    "start_scene": "e3e65e55-7c64-4a26-b18c-5d6e8a5a9c0d"
+  },
+  "preview": {
+    "simulator_orientation": "portrait"
+  },
+  "__version__": "1.0.1"
+}

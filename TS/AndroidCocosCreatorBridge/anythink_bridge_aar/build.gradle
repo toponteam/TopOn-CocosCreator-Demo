@@ -1,0 +1,229 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 34
+    buildToolsVersion "34.0.0"
+    namespace 'com.anythink.cocosjs'
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.libraryVariants.all { variant ->
+        if(variant.name.equalsIgnoreCase("release")) {
+            variant.outputs.all { output ->
+                def f = output.outputFileName
+                if (f != null && f.endsWith('.aar')) {
+                    def fileName = "anythink_cocosjs_bridge.aar"
+                    output.outputFileName = fileName
+                }
+            }
+        }
+    }
+
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    //Anythink (Necessary)
+    api "com.anythink.sdk:core:6.4.08"
+    api "com.anythink.sdk:nativead:6.4.08"
+    api "com.anythink.sdk:banner:6.4.08"
+    api "com.anythink.sdk:interstitial:6.4.08"
+    api "com.anythink.sdk:rewardedvideo:6.4.08"
+//    api "com.anythink.sdk:splash:6.4.08"
+
+//    //Anythink (Necessary)
+//    api "com.anythink.sdk:core-tpn:6.4.08"
+//    api "com.anythink.sdk:nativead-tpn:6.4.08"
+//    api "com.anythink.sdk:banner-tpn:6.4.08"
+//    api "com.anythink.sdk:interstitial-tpn:6.4.08"
+//    api "com.anythink.sdk:rewardedvideo-tpn:6.4.08"
+////    api "com.anythink.sdk:splash-tpn:6.4.08"
+
+    api "com.anythink.sdk:debugger-ui:1.1.0"
+
+    //Androidx (Necessary)
+    api "androidx.appcompat:appcompat:1.1.0"
+    api "androidx.browser:browser:1.4.0"
+//
+//    //Maio
+//    api "com.anythink.sdk:adapter-tpn-maio:6.4.08"
+//    api "com.maio:android-sdk:1.1.16@aar"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //StartApp
+//    api "com.anythink.sdk:adapter-tpn-startapp:6.4.08"
+//    api "com.startapp:inapp-sdk:5.0.2"
+//
+//    //Nend
+//    api "com.anythink.sdk:adapter-tpn-nend:6.4.08"
+//    api "net.nend.android:nend-sdk:7.0.3"
+//    api "androidx.constraintlayout:constraintlayout:2.0.1"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//    api "androidx.preference:preference:1.1.1"
+//
+//    //Vungle
+//    api "com.anythink.sdk:adapter-tpn-vungle:6.4.08"
+//    api "com.vungle:vungle-ads:7.4.0"
+//    api "com.google.android.gms:play-services-basement:18.1.0"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //UnityAds
+//    api "com.anythink.sdk:adapter-tpn-unityads:6.4.08"
+//    api "com.unity3d.ads:unity-ads:4.12.2"
+//
+//    //Ironsource
+//    api "com.anythink.sdk:adapter-tpn-ironsource:6.4.08"
+//    api "com.ironsource.sdk:mediationsdk:8.2.1"
+//    api "com.google.android.gms:play-services-appset:16.0.2"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//    api "com.google.android.gms:play-services-basement:18.1.0"
+//
+//    //Tapjoy
+//    api "com.anythink.sdk:adapter-tpn-tapjoy:6.4.08"
+//    api "com.tapjoy:tapjoy-android-sdk:12.10.0@aar"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //Bigo
+//    api "com.anythink.sdk:adapter-tpn-bigo:6.4.08"
+//    api "com.bigossp:bigo-ads:4.9.0"
+//
+//    //Pubnative
+//    api "com.anythink.sdk:adapter-tpn-pubnative:6.4.08"
+//    api "net.pubnative:hybid.sdk:3.0.2"
+//
+//    //Xiaomi
+//    api "com.anythink.sdk:adapter-tpn-xiaomi:6.4.08"
+//    api "com.xiaomi.sdk:columbus:3.2.9.0"
+//    api "com.xiaomi.sdk:adjumper-inner:3.0.5.1"
+//    api "com.xiaomi.sdk:analytics-pubsub:4.2.2.0"
+//    api "com.xiaomi.sdk:encrypt-okhttp:2.4.1"
+//    api "com.squareup.okhttp3:okhttp:3.12.2"
+//
+//    //Pangle
+//    api "com.anythink.sdk:adapter-tpn-pangle-nonchina:6.4.08"
+//    api "com.pangle.global:ads-sdk:6.1.0.9"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //Amazon
+//    api "com.anythink.sdk:adapter-tpn-amazon:6.4.08"
+//    api "com.amazon.android:aps-sdk:9.10.2"
+//    api "com.iabtcf:iabtcf-decoder:2.0.10"
+//
+//    //Kwai
+//    api "com.anythink.sdk:adapter-tpn-kwai:6.4.08"
+//    api "com.kwai.sdk:adapi:1.2.8"
+//    api "com.kwai.sdk:adimpl:1.2.8"
+//    api "androidx.media3:media3-exoplayer:1.0.0-alpha01"
+//    api "androidx.appcompat:appcompat:1.2.0"
+//    api "com.google.android.material:material:1.2.1"
+//    api "androidx.annotation:annotation:1.2.0"
+//    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //Kidoz
+//    api "com.anythink.sdk:adapter-tpn-kidoz:6.4.08"
+//    api "net.kidoz.sdk:kidoz-android-native:8.9.7"
+//    api "org.greenrobot:eventbus:3.3.1"
+//
+//    //Huawei
+//    api "com.anythink.sdk:adapter-tpn-huawei-nonchina:6.4.08"
+    api "com.huawei.hms:ads-lite:13.4.73.301"
+//
+//    //Facebook
+//    api "com.anythink.sdk:adapter-tpn-facebook:6.4.08"
+//    api "com.facebook.android:audience-network-sdk:6.17.0"
+//    api "androidx.annotation:annotation:1.0.0"
+//
+//    //Admob
+//    api "com.anythink.sdk:adapter-tpn-admob:6.4.08"
+//    api "com.google.android.gms:play-services-ads:23.0.0"
+//
+//    //Inmobi
+//    api "com.anythink.sdk:adapter-tpn-inmobi:6.4.08"
+//    api "com.inmobi.monetization:inmobi-ads-kotlin:10.7.5"
+//
+//    //AppLovin
+//    api "com.anythink.sdk:adapter-tpn-applovin:6.4.08"
+//    api "com.applovin:applovin-sdk:12.6.0"
+//
+//    //Mintegral
+//    api "com.anythink.sdk:adapter-tpn-mintegral-nonchina:6.4.08"
+//    api "com.mbridge.msdk.oversea:reward:16.8.11"
+//    api "com.mbridge.msdk.oversea:newinterstitial:16.8.11"
+//    api "com.mbridge.msdk.oversea:mbnative:16.8.11"
+//    api "com.mbridge.msdk.oversea:mbnativeadvanced:16.8.11"
+//    api "com.mbridge.msdk.oversea:mbsplash:16.8.11"
+//    api "com.mbridge.msdk.oversea:mbbanner:16.8.11"
+//    api "com.mbridge.msdk.oversea:mbbid:16.8.11"
+//    api "androidx.recyclerview:recyclerview:1.1.0"
+//
+//    //Chartboost
+//    api "com.anythink.sdk:adapter-tpn-chartboost:6.4.08"
+//    api "com.chartboost:chartboost-sdk:9.7.0"
+//    api "com.chartboost:chartboost-mediation-sdk:4.9.1"
+//    api "com.chartboost:chartboost-mediation-adapter-chartboost:4.9.7.0.0"
+//    api "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
+//    api "com.squareup.okhttp3:logging-interceptor:4.10.0"
+//    api "com.squareup.okhttp3:okhttp:4.10.0"
+//    api "com.squareup.retrofit2:converter-scalars:2.9.0"
+//    api "com.squareup.retrofit2:retrofit:2.9.0"
+//    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
+//    api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+//
+//    //Mytarget
+//    api "com.anythink.sdk:adapter-tpn-mytarget:6.4.08"
+//    api "com.my.target:mytarget-sdk:5.20.1"
+//
+//    //Yandex
+//    api "com.anythink.sdk:adapter-tpn-yandex:6.4.08"
+//    api "com.yandex.android:mobileads:7.1.0"
+//
+//    //Fyber
+//    api "com.anythink.sdk:adapter-tpn-fyber:6.4.08"
+//    api "com.fyber:marketplace-sdk:8.3.0"
+//    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+//
+//    //Ogury
+//    api "com.anythink.sdk:adapter-tpn-ogury:6.4.08"
+//    api "co.ogury:ogury-sdk:5.2.0"
+//
+//    //Googleima
+//    api "com.anythink.sdk:adapter-tpn-googleima:6.4.11"
+//    api "com.anythink.sdk:mediavideo-tpn:6.4.11"
+//    api "com.google.ads.interactivemedia.v3:interactivemedia:3.33.0"
+//    api "androidx.appcompat:appcompat:1.6.1"
+//    api "androidx.browser:browser:1.6.0"
+//    api "androidx.media:media:1.6.0"
+}
+
+
+task copyTask {
+    doLast {
+        copy {
+            from 'build/outputs/aar/anythink_cocosjs_bridge.aar'
+            into 'release/'
+        }
+        copy {
+            from 'build/outputs/aar/anythink_cocosjs_bridge.aar'
+            into '../../demo_cocoscreator/build-templates/jsb-default/frameworks/runtime-src/proj.android-studio/app/libs'
+        }
+    }
+}
+
+assemble.finalizedBy(copyTask)
+

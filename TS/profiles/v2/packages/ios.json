@@ -1,0 +1,19 @@
+{
+  "options": {
+    "ios": {
+      "orientation": {
+        "landscapeRight": false,
+        "landscapeLeft": false,
+        "portrait": true
+      },
+      "renderBackEnd": {
+        "metal": true
+      },
+      "skipUpdateXcodeProject": false,
+      "targetVersion": "12.0",
+      "developerTeam": "6YXYV74FF7",
+      "packageName": "com.anythink.AnyThinkSDKDemo"
+    }
+  },
+  "__version__": "1.0.0"
+}

@@ -1,0 +1,86 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.0'
+        
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        //Anythink(Core)
+        maven {
+            url "https://jfrog.anythinktech.com/artifactory/overseas_sdk"
+        }
+
+        maven {
+            url "https://jfrog.anythinktech.com/artifactory/debugger"
+        }
+
+        //Maio
+        maven {
+            url "https://imobile-maio.github.io/maven"
+        }
+
+        //Nend
+        maven {
+            url "https://fan-adn.github.io/nendSDK-Android-lib/library"
+        }
+
+        //Ironsource
+        maven {
+            url "https://android-sdk.is.com/"
+        }
+
+        //Tapjoy
+        maven {
+            url "https://sdk.tapjoy.com/"
+        }
+
+        //Pubnative
+        maven {
+            url "https://verve.jfrog.io/artifactory/verve-gradle-release"
+        }
+
+        //Pangle
+        maven {
+            url "https://artifact.bytedance.com/repository/pangle"
+        }
+
+        //Huawei
+        maven {
+            url "https://developer.huawei.com/repo/"
+        }
+
+        //Mintegral
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
+        }
+
+        //Chartboost
+        maven {
+            url "https://cboost.jfrog.io/artifactory/chartboost-ads"
+        }
+        maven {
+            url "https://cboost.jfrog.io/artifactory/chartboost-mediation"
+        }
+
+        //Ogury
+        maven {
+            url "https://maven.ogury.co"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,129 @@
+{
+  "log": {
+    "level": 4
+  },
+  "common": {
+    "outputName": "android",
+    "mainBundleCompressionType": "merge_dep",
+    "platform": "android",
+    "startScene": "ac45c6ef-096a-4edc-b22d-edb630ae0347",
+    "name": "cocos2Android",
+    "debug": true
+  },
+  "BuildTaskManager": {
+    "taskMap": {
+      "1727161708570": {
+        "id": "1727161708570",
+        "progress": 1,
+        "state": "success",
+        "message": "2024-9-26 13:15 Build success in 3456 ms!",
+        "options": {
+          "name": "cocos2Android",
+          "platform": "android",
+          "buildPath": "project://build",
+          "debug": true,
+          "md5Cache": false,
+          "sourceMaps": false,
+          "replaceSplashScreen": false,
+          "mainBundleCompressionType": "merge_dep",
+          "mainBundleIsRemote": false,
+          "mergeStartScene": false,
+          "experimentalEraseModules": false,
+          "compressTexture": true,
+          "packAutoAtlas": true,
+          "startScene": "ac45c6ef-096a-4edc-b22d-edb630ae0347",
+          "scenes": [
+            {
+              "url": "db://assets/Scene/BannerScene.scene",
+              "uuid": "0fad857b-5563-479f-a2ec-485762f56423",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/IntersitialAutoScene.scene",
+              "uuid": "17be35ee-930e-43a5-b1d1-9921c9600778",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/IntersitialScene.scene",
+              "uuid": "e4bb010e-999c-4e58-826d-7677df124277",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/MainScene.scene",
+              "uuid": "ac45c6ef-096a-4edc-b22d-edb630ae0347",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/NativeScene.scene",
+              "uuid": "6c3cd5cd-3044-4852-8b71-0bdd54381c57",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/RewardAutoScene.scene",
+              "uuid": "2d927f46-80e4-4f8f-bd12-2db03f1fb2b3",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/RewardScene.scene",
+              "uuid": "162f724f-6712-42f0-af24-38bfc9672969",
+              "inBundle": false
+            },
+            {
+              "url": "db://assets/Scene/TestScene.scene",
+              "uuid": "9a2f8d3d-ee81-4621-954c-cb1577903842",
+              "inBundle": false
+            }
+          ],
+          "outputName": "android",
+          "packages": {
+            "android": {
+              "packageName": "com.anyThinkSDK.Demo",
+              "orientation": {
+                "portrait": true,
+                "upsideDown": false,
+                "landscapeRight": false,
+                "landscapeLeft": false
+              },
+              "apiLevel": "android-34",
+              "appABIs": [
+                "armeabi-v7a",
+                "x86"
+              ],
+              "useDebugKeystore": true,
+              "keystorePath": "",
+              "keystorePassword": "",
+              "keystoreAlias": "",
+              "keystoreAliasPassword": "",
+              "appBundle": false,
+              "androidInstant": false,
+              "remoteUrl": "",
+              "sdkPath": "",
+              "ndkPath": "",
+              "renderBackEnd": {
+                "vulkan": false,
+                "gles3": true,
+                "gles2": true
+              }
+            },
+            "native": {
+              "polyfills": {
+                "asyncFunctions": true
+              },
+              "encrypted": false,
+              "xxteaKey": "2bvEMJ1xVNw5nPSw",
+              "compressZip": false,
+              "makeAfterBuild": false,
+              "JobSystem": "tbb"
+            },
+            "cocos-service": {
+              "configID": "59b24b",
+              "services": []
+            }
+          }
+        },
+        "time": "2024-9-26 13:15",
+        "dirty": false
+      }
+    }
+  }
+}

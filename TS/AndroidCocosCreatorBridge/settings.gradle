@@ -1,0 +1,2 @@
+include ':app', ":anythink_bridge_aar"
+rootProject.name='AnythinkCocosCreatorDemo'

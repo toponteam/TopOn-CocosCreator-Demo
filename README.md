@@ -1,26 +1,25 @@
-# TopOn-CocosCreator-Demo for CocosCreator
+# TopOn-CocosCreator-Demo
 
-TopOn is an ad mediation platform that helps global app developers to find a perfect fit for your monetization strategy.  We have more than 35 million DAU, 400 million daily ad impression and 3.5 billion daily ad request. In China, TopOn becomes the Top #1 mediation platform.
+## Overview
+
+TopOn is a leading advertising aggregation platform that enables publishers to maximize their revenue by connecting with a diverse range of advertisers. With serving over 10 thousands publishers and over 30 billion users worldwide, TopOn is one of the largest independent advertising platforms globally at present. You can read more about it [here](https://help.takuad.com/en/docs/mSI16D).
+
+## Documentation
+
+Please check out our [documentation](https://help.takuad.com/en/docs/9Xhkol) to get started on integrating and enabling mediated networks using our guides.
+
+## Demo
+
+This demo shows how to integrate the TopOn SDK into your application and provides the source code to demonstrate how to use some basic functions of the TopOn API.
+
+The development environment requirements:
+- CocosCreator v3.4.1
 
 
-## Communication
-Official website ： https://www.toponad.com/
+## Support
 
-Business Cooperation : business@toponad.com
+If you have any questions or issues, you can contact us at:
 
-Market Cooperation : leon@toponad.com
-
-Technical Support : support@toponad.com
-
-QQ & wechat 188108875(Harry)
-
-
-
-## Integration instructions
-This project only contains TopOn SDK source code. If you need to test a third-party advertising platform, please download from the following URL
-
-https://docs.toponad.com/#/en-us/cocoscreator/cocoscreator_doc/cocoscreator_access_doc
-
-## LICENSE
-
-See the [LICENSE](LICENSE) file.
+| Technical Support    | support@toponad.com  |
+| -------------------- | -------------------- |
+| Business Cooperation | business@toponad.com |

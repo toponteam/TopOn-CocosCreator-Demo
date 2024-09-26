@@ -1,0 +1,338 @@
+{
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene": {
+    "time": 1727158947666.3728,
+    "uuid": "eb450cd2-d12d-475c-b2c6-b58e034c0b97",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script": {
+    "time": 1727322075777.6511,
+    "uuid": "1ee02146-7255-4191-a131-521c87dd05a2",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\BannerScene.scene": {
+    "time": 1727168193309.7722,
+    "uuid": "0fad857b-5563-479f-a2ec-485762f56423",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\IntersitialAutoScene.scene": {
+    "time": 1727168220425.9536,
+    "uuid": "17be35ee-930e-43a5-b1d1-9921c9600778",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\IntersitialScene.scene": {
+    "time": 1727168285561.1516,
+    "uuid": "e4bb010e-999c-4e58-826d-7677df124277",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\MainScene.scene": {
+    "time": 1727244276714.0525,
+    "uuid": "ac45c6ef-096a-4edc-b22d-edb630ae0347",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\NativeScene.scene": {
+    "time": 1727168317062.3384,
+    "uuid": "6c3cd5cd-3044-4852-8b71-0bdd54381c57",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\RewardAutoScene.scene": {
+    "time": 1727168341508.2903,
+    "uuid": "2d927f46-80e4-4f8f-bd12-2db03f1fb2b3",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\RewardScene.scene": {
+    "time": 1727168359734.27,
+    "uuid": "162f724f-6712-42f0-af24-38bfc9672969",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\TestScene.scene": {
+    "time": 1727165002407.7612,
+    "uuid": "9a2f8d3d-ee81-4621-954c-cb1577903842",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds": {
+    "time": 1727246697876.6257,
+    "uuid": "9361143b-f593-495a-a83f-07cd72215eff",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATBannerSceneScript.ts": {
+    "time": 1727158911406.718,
+    "uuid": "89d4bd26-5221-4e48-b9b6-64af81b5f757",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATIntersitialAutoSceneScript.ts": {
+    "time": 1727158911406.718,
+    "uuid": "f52561b9-2a7b-4920-b050-8454fc7f7048",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATIntersitialSceneScript.ts": {
+    "time": 1727158911406.718,
+    "uuid": "4506e1bd-46b8-4aec-824d-94a5719977ca",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATMainSceneScript.ts": {
+    "time": 1727322075776.6536,
+    "uuid": "a5e92b8e-1cf5-48bf-ba95-adcc4e12ce9f",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATNativeSceneScript.ts": {
+    "time": 1727158911406.718,
+    "uuid": "492c0b0c-8b95-4bae-a5da-be77f725ba9b",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATRewardAutoSceneScript.ts": {
+    "time": 1727158911407.698,
+    "uuid": "c5e6b036-cf68-46b8-ace5-039ecda18b3b",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATRewardSceneScript.ts": {
+    "time": 1727158911407.698,
+    "uuid": "77f44c1b-ac03-4e3f-8555-fe992d2338a5",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATTestScript.ts": {
+    "time": 1727158911408.702,
+    "uuid": "2b6bc48a-d55d-4236-8323-591be0bbab08",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android": {
+    "time": 1727329199510.3877,
+    "uuid": "b3d92991-e8b4-4932-9c0d-0ab369bfb843",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATBannerTSSDK.ts": {
+    "time": 1727158911408.702,
+    "uuid": "4e2cee6f-2e5b-4d88-8400-68a49208c80d",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATIntersitialAutoTSSDK.ts": {
+    "time": 1727158911408.702,
+    "uuid": "2a2f63dd-fe9f-4374-944f-0be29ba66ddf",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATIntersitialTSSDK.ts": {
+    "time": 1727158911409.6973,
+    "uuid": "a802531f-e98e-4ce1-8287-9fba9e143bcf",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATJSSDK.ts": {
+    "time": 1727246697876.1199,
+    "uuid": "017003bb-80db-4324-b21a-805805610f4a",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATNativeTSSDK.ts": {
+    "time": 1727158911410.697,
+    "uuid": "1aa34e38-25d3-4c87-8255-a933959ee5d0",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATRewardedAutoVideoTSSDK.ts": {
+    "time": 1727158911410.697,
+    "uuid": "00483e8a-d271-4f14-b4eb-c67f55a90986",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATRewardedVideoTSSDK.ts": {
+    "time": 1727158911410.697,
+    "uuid": "083add2c-1f11-47a2-85ff-30cddcb89266",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS": {
+    "time": 1727329199521.203,
+    "uuid": "2274494f-fe7c-48de-adf7-7a6648a39be8",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidBannerTS.ts": {
+    "time": 1727158911411.7136,
+    "uuid": "47c3ed80-cfde-44cb-a1a8-aa2abfce36ec",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidIntersitialAutoTS.ts": {
+    "time": 1727158911411.7136,
+    "uuid": "c2901eec-f223-4256-9c76-69711c40200a",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidIntersitialTS.ts": {
+    "time": 1727158911411.7136,
+    "uuid": "ef6b5eec-7a1e-4493-b228-18713b13bc46",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidJS.ts": {
+    "time": 1727329199510.3877,
+    "uuid": "6e2079c3-5c5c-42e1-9c43-ea1b030f5b9e",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidNativeTS.ts": {
+    "time": 1727158911411.7136,
+    "uuid": "5302cfb8-2b5f-40d5-b888-e0e52c329fef",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidRewardedVideoAutoTS.ts": {
+    "time": 1727158911411.7136,
+    "uuid": "b88a4efb-5c0c-4703-94e9-3055647d003e",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidRewardedVideoTS.ts": {
+    "time": 1727158911412.723,
+    "uuid": "56ae5827-a489-4add-b1f9-4e1b4d4c03ff",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSBannerTS.ts": {
+    "time": 1727158911413.6985,
+    "uuid": "2d15581b-fef9-4452-83d1-c583c8ee1d64",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSIntersitiaAutolTS.ts": {
+    "time": 1727158911413.6985,
+    "uuid": "40929f81-3c04-4302-bfe9-752db87f0d16",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSIntersitialTS.ts": {
+    "time": 1727158911413.6985,
+    "uuid": "73b23da5-85d3-4a8c-afb5-ce3713440bb9",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSJS.ts": {
+    "time": 1727329199520.143,
+    "uuid": "64893991-72d3-4a36-8fc9-ede3e95209cf",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSNativeTS.ts": {
+    "time": 1727158911415.1292,
+    "uuid": "24b8a6b8-e1b7-4a29-95b7-c993e309a716",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSRewardedAutoVideoTS.ts": {
+    "time": 1727158911415.1292,
+    "uuid": "fdafc559-b1b9-4ec5-9ba1-f7fa710edd59",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSRewardedVideoTS.ts": {
+    "time": 1727158911416.153,
+    "uuid": "fbd85748-097c-4c42-b091-a508aa51d05b",
+    "missing": false
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene.meta": {
+    "time": 1727158947683.888
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script.meta": {
+    "time": 1727158947699.5564
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\IntersitialAutoScene.scene.meta": {
+    "time": 1727158947705.5576
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\IntersitialScene.scene.meta": {
+    "time": 1727158947706.8967
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\BannerScene.scene.meta": {
+    "time": 1727158947717.4797
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\NativeScene.scene.meta": {
+    "time": 1727158947774.5017
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds.meta": {
+    "time": 1727158947775.4785
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\MainScene.scene.meta": {
+    "time": 1727158947777.5056
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATBannerSceneScript.ts.meta": {
+    "time": 1727158947779.5127
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATIntersitialAutoSceneScript.ts.meta": {
+    "time": 1727158947782.515
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATIntersitialSceneScript.ts.meta": {
+    "time": 1727158947786.0425
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\RewardScene.scene.meta": {
+    "time": 1727158947789.0637
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATMainSceneScript.ts.meta": {
+    "time": 1727158947791.0732
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATNativeSceneScript.ts.meta": {
+    "time": 1727158947793.061
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATRewardAutoSceneScript.ts.meta": {
+    "time": 1727158947795.5708
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATRewardSceneScript.ts.meta": {
+    "time": 1727158947796.58
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android.meta": {
+    "time": 1727158947798.588
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\ATTestScript.ts.meta": {
+    "time": 1727158947801.5903
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\TestScene.scene.meta": {
+    "time": 1727158947804.5918
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Scene\\RewardAutoScene.scene.meta": {
+    "time": 1727158947805.5898
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATBannerTSSDK.ts.meta": {
+    "time": 1727158947807.9421
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATIntersitialAutoTSSDK.ts.meta": {
+    "time": 1727158947809.9377
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATIntersitialTSSDK.ts.meta": {
+    "time": 1727158947811.9448
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATJSSDK.ts.meta": {
+    "time": 1727158947812.936
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATNativeTSSDK.ts.meta": {
+    "time": 1727158947815.4456
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS.meta": {
+    "time": 1727158947818.468
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATRewardedAutoVideoTSSDK.ts.meta": {
+    "time": 1727158947821.4648
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\ATRewardedVideoTSSDK.ts.meta": {
+    "time": 1727158947824.4678
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidBannerTS.ts.meta": {
+    "time": 1727158947826.7776
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidIntersitialAutoTS.ts.meta": {
+    "time": 1727158947828.7993
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidIntersitialTS.ts.meta": {
+    "time": 1727158947831.777
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidJS.ts.meta": {
+    "time": 1727158947834.774
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidNativeTS.ts.meta": {
+    "time": 1727158947838.329
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidRewardedVideoAutoTS.ts.meta": {
+    "time": 1727158947840.3286
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\Android\\ATAndroidRewardedVideoTS.ts.meta": {
+    "time": 1727158947842.9758
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSBannerTS.ts.meta": {
+    "time": 1727158947845.401
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSIntersitiaAutolTS.ts.meta": {
+    "time": 1727158947847.4138
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSIntersitialTS.ts.meta": {
+    "time": 1727158947850.4182
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSJS.ts.meta": {
+    "time": 1727158947854.4153
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSNativeTS.ts.meta": {
+    "time": 1727158947856.9392
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSRewardedAutoVideoTS.ts.meta": {
+    "time": 1727158947857.9497
+  },
+  "D:\\AS_Work\\SDK\\up_sdk_cocoscreater\\TS\\assets\\Script\\AnyThinkAds\\iOS\\ATiOSRewardedVideoTS.ts.meta": {
+    "time": 1727158947859.9514
+  }
+}
