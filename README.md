@@ -2,11 +2,11 @@
 
 ## Overview
 
-TopOn is a leading advertising aggregation platform that enables publishers to maximize their revenue by connecting with a diverse range of advertisers. With serving over 10 thousands publishers and over 30 billion users worldwide, TopOn is one of the largest independent advertising platforms globally at present. You can read more about it [here](https://help.takuad.com/en/docs/mSI16D).
+TopOn is a leading advertising aggregation platform that enables publishers to maximize their revenue by connecting with a diverse range of advertisers. With serving over 10 thousands publishers and over 30 billion users worldwide, TopOn is one of the largest independent advertising platforms globally at present. You can read more about it [here](https://newdocs.toponad.com/en/docs/mSI16D).
 
 ## Documentation
 
-Please check out our [documentation](https://help.takuad.com/en/docs/9Xhkol) to get started on integrating and enabling mediated networks using our guides.
+Please check out our [documentation](https://newdocs.toponad.com/en/docs/9Xhkol) to get started on integrating and enabling mediated networks using our guides.
 
 ## Demo
 
